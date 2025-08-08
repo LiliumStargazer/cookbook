@@ -1,0 +1,33 @@
+
+services:
+  cookbook-app:
+    container_name: cookbook-app
+    build: ./cookbook-app
+    ports:
+      - "80:5173"  # Mappa porta 80 host -> 5173 container (Vite)
+    env_file:
+      - ./cookbook-app/.env
+    volumes:
+      - ./cookbook-app:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+
+  cookbook-api:
+    container_name: cookbook-api
+    build: ./cookbook-api
+    # Nessuna porta esposta esternamente
+    env_file:
+      - ./cookbook-api/.env
+    volumes:
+      - ./cookbook-api:/app
+      - /app/node_modules
+    command: npm run dev
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: cookbook-mongo
+    image: mongo:latest
+    volumes:
+      - ./data/mongodb:/data/db
+

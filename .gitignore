@@ -1,0 +1,14 @@
+# Database data
+data/
+
+# OS files
+.DS_Store
+.idea/
+
+# Docker volumes
+docker-compose.override.yml
+
+# Environment files
+.env
+.env.local
+.env.*.local
