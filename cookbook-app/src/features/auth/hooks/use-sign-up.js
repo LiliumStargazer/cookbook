@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { registerUser } from '../utils/api-auth.js';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "sonner";
 
 export default function useSignUp() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [favoriteDishes, setFavoriteDishes] = useState('');
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -19,7 +18,6 @@ export default function useSignUp() {
 
     const handleSubmit = async () => {
         setLoading(true);
-        setError(null);
         // favoriteDishes come array di stringhe
         const dishesArray = favoriteDishes
             .split(',')
@@ -28,14 +26,14 @@ export default function useSignUp() {
         const result = await registerUser({ username, email, password, favoriteDishes: dishesArray });
         setLoading(false);
         if (result.success) {
-            setSuccess('Registrazione avvenuta con successo!Ti reindirizzo alla pagina di login');
+            toast.success('Registrazione avvenuta con successo!Ti reindirizzo alla pagina di login');
             setTimeout(() => {
                 navigate('/signin');
                 // workaround Ricarica la pagina dopo il redirect, altrimenti fallisce il login perchè non trova il token
                 window.location.reload();
             }, 2500);
         } else {
-            setError(result.error);
+            toast.error(result.error);
         }
     };
 
@@ -44,8 +42,6 @@ export default function useSignUp() {
         email,
         password,
         favoriteDishes,
-        error,
-        success,
         loading,
         handleUsernameChange,
         handleEmailChange,

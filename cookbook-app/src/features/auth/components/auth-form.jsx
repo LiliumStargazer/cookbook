@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button.jsx";
 export default function AuthForm({
   fields = [],
   onSubmit,
-  error,
-  success,
   loading = false,
   buttonText,
   extraButtons = null,
@@ -56,11 +54,6 @@ export default function AuthForm({
         </div>
       ))}
       {children}
-      {(error || success) && (
-        <div className={`text-sm text-center mb-2 ${error ? 'text-red-600' : 'text-green-600'}`}>
-          {error || success}
-        </div>
-      )}
       <Button type="submit" className="w-full rounded-lg" variant="destructive" disabled={loading}>
         {loading ? "..." : buttonText}
       </Button>

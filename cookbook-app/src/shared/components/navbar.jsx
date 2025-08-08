@@ -4,20 +4,31 @@ import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
-    NavigationMenuList, navigationMenuTriggerStyle
+    NavigationMenuList
 } from "@/components/ui/navigation-menu.jsx";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu.jsx";
 import React from "react";
-import {useCurrentUser} from "@/shared/hooks/use-current-user.js";
 import {AvatarImage, AvatarFallback, Avatar} from "@/components/ui/avatar.jsx";
+import useAuth from "@/lib/store.js";
 
 export default function NavBar() {
     const { menuItems } = useNavigation()
     const navigate = useNavigate()
-    const currentuser = useCurrentUser();
-    console.log(currentuser);
+    const { logout, userData } = useAuth()
 
     const handleNavigation = (to) => {
         navigate(to)
+    }
+
+    const handleLogout = () => {
+        logout()
+        navigate('/auth/login')
     }
 
     return (
@@ -45,22 +56,29 @@ export default function NavBar() {
                             ))}
                         </NavigationMenuList>
                     </NavigationMenu>
-                    <Avatar
-                        className="border-2 !border-primary"
-                        type="button"
-                        style={{ cursor: 'default', textDecoration: 'none' }}
-                        onClick={() => handleNavigation('/profile')}
-                    >
-                        <AvatarImage
-                            src="https://github.com/evilrabbit.png"
-                            alt="@evilrabbit"
-                        />
-                        <AvatarFallback>ER</AvatarFallback>
-                    </Avatar>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Avatar className="border-2 !border-primary cursor-pointer hover:opacity-80">
+                                <AvatarImage
+                                    src="https://github.com/evilrabbit.png"
+                                    alt={userData?.username}
+                                />
+                                <AvatarFallback>
+                                    {userData?.username?.[0]?.toUpperCase() || 'U'}
+                                </AvatarFallback>
+                            </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleNavigation('/profile')}>
+                                Il mio Profilo
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                                Logout
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
-            </div>
-            <div>
-
             </div>
         </nav>
     )

@@ -3,40 +3,26 @@ import { create } from 'zustand';
 
 const useAuth = create((set, get) => ({
     token: null,
-    user: null,
+    userData: null,
 
-    login: (token, user) => {
+    login: (token, userData) => {
         localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        set({ token, user });
+        localStorage.setItem('user', JSON.stringify(userData));
+        set({ token, userData });
     },
 
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        set({ token: null, user: null });
+        set({ token: null, userData: null });
     },
 
-    // Nuova funzione per recuperare i dati utente dal backend
-    fetchUserData: async () => {
-        const { token } = get();
-        if (!token) return;
+    updateUser: (userData) => {
+        const currentUserData = get().userData;
+        const updatedUserData = { ...currentUserData, ...userData };
 
-        try {
-            const response = await fetch('/api/auth/me', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (response.ok) {
-                const user = await response.json();
-                localStorage.setItem('user', JSON.stringify(user));
-                set({ user });
-            }
-        } catch (error) {
-            console.error('Errore nel recuperare i dati utente:', error);
-        }
+        localStorage.setItem('user', JSON.stringify(updatedUserData));
+        set({ userData: updatedUserData });
     },
 
     loadFromStorage: () => {
@@ -45,8 +31,8 @@ const useAuth = create((set, get) => ({
 
         if (token && userString) {
             try {
-                const user = JSON.parse(userString);
-                set({ token, user });
+                const userData = JSON.parse(userString);
+                set({ token, userData });
             } catch (error) {
                 console.error('Errore nel parsing dei dati utente:', error);
                 // Se c'è un errore, pulisci il localStorage

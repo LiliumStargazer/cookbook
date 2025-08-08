@@ -1,9 +1,9 @@
 import api from '../../../lib/axios.js';
 import useAuth from '../../../lib/store.js';
 
-export async function registerUser(userData) {
+export async function registerUser(registrationData) {
     try {
-        const response = await api.post(`${import.meta.env.VITE_AUTH_URL}/register`, userData);
+        const response = await api.post(`${import.meta.env.VITE_AUTH_URL}/register`, registrationData);
         return { success: true, data: response.data };
     } catch (error) {
         console.log(error.response?.data);
@@ -11,33 +11,19 @@ export async function registerUser(userData) {
     }
 }
 
-export async function loginUser(userData) {
+export async function loginUser(loginCredentials) {
     try {
-        const response = await api.post(`${import.meta.env.VITE_AUTH_URL}/login`, userData);
-        const { token, user } = response.data;
-        useAuth.getState().login(token, user);
+        const response = await api.post(`${import.meta.env.VITE_AUTH_URL}/login`, loginCredentials);
+        const { token, userData } = response.data;
+        console.log('Login response:', response.data);
+
+        // Salva il token e i dati utente nello store globale
+        useAuth.getState().login(token, userData);
         return { success: true };
     } catch (error) {
+        console.error('ERROR', error);
         return { success: false, error: error.response?.data?.message || 'Errore di autenticazione' };
     }
 }
 
-export async function updateUser(data) {
-    try {
-        const response = await api.put(`${import.meta.env.VITE_AUTH_URL}/api/user`, data);
-        return { success: true, data: response.data };
-    } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore aggiornamento utente' };
-    }
-}
-
-export async function deleteUser() {
-    try {
-        await api.delete(`${import.meta.env.VITE_AUTH_URL}/api/user`);
-        useAuth.getState().logout();
-        return { success: true };
-    } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore cancellazione utente' };
-    }
-}
 

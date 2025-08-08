@@ -11,8 +11,6 @@ export default function SignUpPage() {
         email,
         password,
         favoriteDishes,
-        error,
-        success,
         loading,
         handleUsernameChange,
         handleEmailChange,
@@ -79,8 +77,6 @@ export default function SignUpPage() {
                             },
                         ]}
                         onSubmit={handleSubmit}
-                        error={error}
-                        success={success}
                         loading={loading}
                         buttonText="Registrati"
                     />

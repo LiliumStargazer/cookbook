@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Recipe = require('../models/Recipe');
+const Review = require('../models/Review');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const validateUserData = require('../utils/validateUser');
@@ -8,9 +9,7 @@ const validateUserUpdate = require('../utils/validateUserUpdate');
 exports.register = async (req, res) => {
   const error = validateUserData(req.body);
   if (error) {
-    console.log(req.body);
-    console.log(typeof req.body.username);
-    console.log('Errore in register:', error);
+
     return res.status(400).send(error);
   }
   try {
@@ -68,7 +67,7 @@ exports.login = async (req, res) => {
     
     res.json({ 
       token, 
-      user: userWithoutPassword 
+      userData: userWithoutPassword
     });
   } catch (err) {
     console.error('Errore in login:', err);
@@ -94,16 +93,43 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+// il middeware auth.js estrae il token prima di chiamare questa funzione e riconosce l'utente.
 exports.deleteUser = async (req, res) => {
   if (!req.userId) {
-    return res.status(401).send('Utente non autenticato');
+    return res.status(401).json({ 
+      success: false, 
+      error: 'Utente non autenticato' 
+    });
   }
+
   try {
-    const user = await User.findByIdAndDelete(req.userId);
-    if (!user) return res.status(404).send('Utente non trovato');
-    await Recipe.deleteMany({ userId: req.userId });
-    res.send('Utente e ricette eliminate');
-  } catch {
-    res.status(500).send('Errore del server');
+    // Verifica che l'utente esista prima di eliminarlo
+    const user = await User.findById(req.userId);
+    if (!user) {
+        console.error('Utente non trovato:', req.userId);
+      return res.status(404).json({ 
+        success: false, 
+        error: 'Utente non trovato' 
+      });
+    }
+
+    // Elimina l'utente e tutti i dati correlati
+    await Promise.all([
+      User.findByIdAndDelete(req.userId),
+      Recipe.deleteMany({ userId: req.userId }),
+      Review.deleteMany({ userId: req.userId })
+    ]);
+
+    res.json({ 
+      success: true, 
+      message: 'Account eliminato con successo' 
+    });
+
+  } catch (error) {
+    console.error('Errore durante eliminazione account:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Errore del server durante l\'eliminazione' 
+    });
   }
 };

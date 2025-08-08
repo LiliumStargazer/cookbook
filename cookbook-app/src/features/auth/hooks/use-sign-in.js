@@ -16,6 +16,7 @@ export default function useSignIn() {
         setLoading(true);
         setError(null);
         const result = await loginUser({ email, password });
+        console.log('sono result',result);
         setLoading(false);
         if (result.success) {
             navigate('/');
