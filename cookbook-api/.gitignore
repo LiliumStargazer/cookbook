@@ -24,7 +24,7 @@ build/
 dist/
 
 # dotenv environment variables
-.env
+../cookbook-app/.env
 .env.*
 
 # OS files

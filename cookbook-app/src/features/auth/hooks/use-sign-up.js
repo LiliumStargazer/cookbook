@@ -31,6 +31,8 @@ export default function useSignUp() {
             setSuccess('Registrazione avvenuta con successo!Ti reindirizzo alla pagina di login');
             setTimeout(() => {
                 navigate('/signin');
+                // workaround Ricarica la pagina dopo il redirect, altrimenti fallisce il login perchè non trova il token
+                window.location.reload();
             }, 2500);
         } else {
             setError(result.error);

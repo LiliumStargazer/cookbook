@@ -66,7 +66,7 @@ export default function ProfilePage(){
                         <CardHeader className="text-center">
                             <div className="flex justify-center mb-4">
                                 <Avatar className="w-24 h-24 border-4 border-primary">
-                                    <AvatarImage src={user?.avatar} alt={userName} />
+                                    <AvatarImage src="https://github.com/evilrabbit.png" alt={userName} />
                                     <AvatarFallback className="text-2xl">
                                         {userName?.[0]?.toUpperCase() || 'U'}
                                     </AvatarFallback>
@@ -77,22 +77,8 @@ export default function ProfilePage(){
                                 Gestisci le informazioni del tuo account
                             </CardDescription>
                         </CardHeader>
-
                         <CardContent className="space-y-6">
                             <div className="grid gap-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Nome</Label>
-                                    <Input
-                                        id="name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
-                                        disabled={!isEditing}
-                                        placeholder="Il tuo nome"
-                                        required
-                                    />
-                                </div>
-
                                 <div className="grid gap-2">
                                     <Label htmlFor="username">Username</Label>
                                     <Input
@@ -120,14 +106,14 @@ export default function ProfilePage(){
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="bio">Biografia</Label>
+                                    <Label htmlFor="bio">Piatti preferiti</Label>
                                     <textarea
                                         id="bio"
                                         name="bio"
                                         value={formData.bio}
                                         onChange={handleInputChange}
                                         disabled={!isEditing}
-                                        placeholder="Raccontaci qualcosa di te..."
+                                        placeholder="test hotreload: I tuoi piatti preferiti"
                                         rows={3}
                                         className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                                     />

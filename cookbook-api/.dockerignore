@@ -11,7 +11,7 @@ lib-cov
 coverage
 build
 dist
-.env
+../cookbook-app/.env
 .env.*
 .DS_Store
 Thumbs.db
