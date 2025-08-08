@@ -7,14 +7,11 @@ import {
     NavigationMenuList, navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu.jsx";
 import React from "react";
-import {useCurrentUser} from "@/shared/hooks/use-current-user.js";
 import {AvatarImage, AvatarFallback, Avatar} from "@/components/ui/avatar.jsx";
 
 export default function NavBar() {
     const { menuItems } = useNavigation()
     const navigate = useNavigate()
-    const currentuser = useCurrentUser();
-    console.log(currentuser);
 
     const handleNavigation = (to) => {
         navigate(to)
