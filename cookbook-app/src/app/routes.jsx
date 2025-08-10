@@ -8,6 +8,7 @@ import SignUpPage from "../features/auth/pages/sign-up-page.jsx";
 import Dashboard from "../features/dashboard/pages/dashboard.tsx.jsx";
 import ProfilePage from "@/features/profile/pages/profile.jsx";
 import SearchPage from "@/features/search/pages/search-page.jsx";
+import MealDetailPage from "@/features/search/pages/meal-detail.jsx";
 
 export default function AppRoutes() {
     return (
@@ -21,7 +22,8 @@ export default function AppRoutes() {
                 {/* Rotte protette per utenti loggati */}
                 <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>}/>
                 <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>}/>
-                *<Route path="/search" element={<RequireAuth><SearchPage /></RequireAuth>} />
+                <Route path="/search" element={<RequireAuth><SearchPage /></RequireAuth>} />
+                <Route path="/meal/:id" element={<RequireAuth><MealDetailPage /></RequireAuth>} />
             </Routes>
         </BrowserRouter>
     );

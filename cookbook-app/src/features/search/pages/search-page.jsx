@@ -11,22 +11,20 @@ export default function SearchPage() {
         loading,
         categories,
         areas,
+        ingredients,
         selectedCategory,
         selectedArea,
+        selectedIngredient,
         showFilters,
         setSearchQuery,
         handleSearch,
         handleRandomMeal,
         handleCategoryFilter,
         handleAreaFilter,
+        handleIngredientFilter,
         clearFilters,
         toggleFilters
     } = useSearch();
-
-    const handleViewRecipe = (meal) => {
-        // TODO: Implementare navigazione alla pagina dettaglio ricetta
-        console.log('Visualizza ricetta:', meal);
-    };
 
     return (
         <div className="w-full">
@@ -47,14 +45,17 @@ export default function SearchPage() {
                         loading={loading}
                         categories={categories}
                         areas={areas}
+                        ingredients={ingredients}
                         selectedCategory={selectedCategory}
                         selectedArea={selectedArea}
+                        selectedIngredient={selectedIngredient}
                         showFilters={showFilters}
                         onSearchQueryChange={setSearchQuery}
                         onSearch={handleSearch}
                         onRandomMeal={handleRandomMeal}
                         onCategoryFilter={handleCategoryFilter}
                         onAreaFilter={handleAreaFilter}
+                        onIngredientFilter={handleIngredientFilter}
                         onClearFilters={clearFilters}
                         onToggleFilters={toggleFilters}
                     />
@@ -63,7 +64,6 @@ export default function SearchPage() {
                     <SearchResults
                         meals={meals}
                         loading={loading}
-                        onViewRecipe={handleViewRecipe}
                     />
                 </div>
             </div>

@@ -11,14 +11,17 @@ export default function SearchFilters({
     loading,
     categories,
     areas,
+    ingredients,
     selectedCategory,
     selectedArea,
+    selectedIngredient,
     showFilters,
     onSearchQueryChange,
     onSearch,
     onRandomMeal,
     onCategoryFilter,
     onAreaFilter,
+    onIngredientFilter,
     onClearFilters,
     onToggleFilters
 }) {
@@ -36,7 +39,7 @@ export default function SearchFilters({
                                 onKeyPress={(e) => e.key === 'Enter' && onSearch()}
                             />
                         </div>
-                        <Button onClick={onSearch} disabled={loading}>
+                        <Button variant="destructive" onClick={onSearch} disabled={loading}>
                             <SearchIcon className="w-4 h-4 mr-2" />
                             Cerca
                         </Button>
@@ -61,7 +64,7 @@ export default function SearchFilters({
                             {showFilters ? 'Nascondi' : 'Mostra'} Filtri
                         </Button>
 
-                        {(selectedCategory || selectedArea) && (
+                        {(selectedCategory || selectedArea || selectedIngredient) && (
                             <Button variant="ghost" size="sm" onClick={onClearFilters}>
                                 Cancella Filtri
                             </Button>
@@ -70,7 +73,7 @@ export default function SearchFilters({
 
                     {/* Filtri espandibili */}
                     {showFilters && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t">
                             <div>
                                 <label className="text-sm font-medium mb-2 block">Categoria</label>
                                 <Select value={selectedCategory} onValueChange={onCategoryFilter}>
@@ -79,8 +82,24 @@ export default function SearchFilters({
                                     </SelectTrigger>
                                     <SelectContent>
                                         {categories.map((category) => (
-                                            <SelectItem key={category.idCategory} value={category.strCategory}>
+                                            <SelectItem key={category.strCategory} value={category.strCategory}>
                                                 {category.strCategory}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div>
+                                <label className="text-sm font-medium mb-2 block">Ingredients</label>
+                                <Select value={selectedIngredient} onValueChange={onIngredientFilter}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Seleziona ingrediente" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {ingredients.map((ingredient) => (
+                                            <SelectItem key={ingredient.strIngredient} value={ingredient.strIngredient}>
+                                                {ingredient.strIngredient}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -106,14 +125,19 @@ export default function SearchFilters({
                     )}
 
                     {/* Filtri attivi */}
-                    {(selectedCategory || selectedArea) && (
+                    {(selectedCategory || selectedArea || selectedIngredient) && (
                         <div className="flex flex-wrap gap-2">
-                            {selectedCategory && (
+                            {selectedCategory && selectedCategory !== 'None' && selectedCategory !== '' && (
                                 <Badge variant="secondary">
                                     Categoria: {selectedCategory}
                                 </Badge>
                             )}
-                            {selectedArea && (
+                            {selectedIngredient && selectedIngredient !== 'None' && selectedIngredient !== '' && (
+                                <Badge variant="secondary">
+                                    Ingrediente: {selectedIngredient}
+                                </Badge>
+                            )}
+                            {selectedArea && selectedArea !== 'None' && selectedArea !== '' && (
                                 <Badge variant="secondary">
                                     Origine: {selectedArea}
                                 </Badge>

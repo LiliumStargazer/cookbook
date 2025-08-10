@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card.jsx";
 import MealCard from './meal-card.jsx';
 
-export default function SearchResults({ meals, loading, onViewRecipe }) {
+export default function SearchResults({ meals, loading }) {
     if (loading) {
         return (
             <div className="text-center py-8">
@@ -29,7 +29,6 @@ export default function SearchResults({ meals, loading, onViewRecipe }) {
                 <MealCard
                     key={meal.idMeal}
                     meal={meal}
-                    onViewRecipe={onViewRecipe}
                 />
             ))}
         </div>
