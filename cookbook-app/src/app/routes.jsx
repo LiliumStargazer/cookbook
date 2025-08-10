@@ -7,10 +7,7 @@ import UnauthorizedPage from "../shared/pages/unauthorized-page.jsx";
 import SignUpPage from "../features/auth/pages/sign-up-page.jsx";
 import Dashboard from "../features/dashboard/pages/dashboard.tsx.jsx";
 import ProfilePage from "@/features/profile/pages/profile.jsx";
-// import RecipeListPage from '../features/recipes/pages/RecipeListPage';
-// import RecipeDetailPage from '../features/recipes/pages/RecipeDetailPage';
-// import ReviewPage from '../features/reviews/pages/ReviewPage';
-// import NotFoundPage from '../shared/pages/NotFoundPage';
+import SearchPage from "@/features/search/pages/search-page.jsx";
 
 export default function AppRoutes() {
     return (
@@ -24,10 +21,7 @@ export default function AppRoutes() {
                 {/* Rotte protette per utenti loggati */}
                 <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>}/>
                 <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>}/>
-                {/*<Route path="/recipes" element={<RequireAuth><RecipeListPage /></RequireAuth>} />*/}
-                {/*<Route path="/recipes/:id" element={<RequireAuth><RecipeDetailPage /></RequireAuth>} />*/}
-                {/*<Route path="/reviews/:idMeal" element={<RequireAuth><ReviewPage /></RequireAuth>} />*/}
-                {/*<Route path="*" element={<NotFoundPage />} />*/}
+                *<Route path="/search" element={<RequireAuth><SearchPage /></RequireAuth>} />
             </Routes>
         </BrowserRouter>
     );

@@ -22,7 +22,8 @@ export const deleteUser = async () => {
         console.log(error.response?.data);
         return {
             success: false,
-            error: error.response?.data? || error.response?.data?.message || 'Errore durante l\'eliminazione dell\'account'
+            error: error.response?.data || error.response?.data?.message || 'Errore durante l\'eliminazione dell\'account'
         };
     }
 };
+

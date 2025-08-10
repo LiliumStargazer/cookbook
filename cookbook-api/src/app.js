@@ -4,12 +4,14 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const recipeRoutes = require('./routes/recipe');
 const reviewRoutes = require('./routes/review');
+const mealdbRoutes = require('./routes/mealdbRoutes');
 
 const app = express();
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/recipe', recipeRoutes);
 app.use('/api/review', reviewRoutes);
+app.use('/api/mealdb', mealdbRoutes);
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('Connessione a MongoDB riuscita'))

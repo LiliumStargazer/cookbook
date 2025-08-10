@@ -6,9 +6,9 @@ export function useNavigation() {
 
     const menuItems = useMemo(() => [
         { label: 'Home', to: '/' },
-        { label: 'Recipes', to: '/recipes' },
+        { label: 'Search', to: '/search' },
+        { label: 'My Recipes', to: '/recipes' },
         { label: 'Profile', to: '/profile' },
-        { label: 'Impostazioni', to: '/settings' }
     ], [])
 
     return { menuItems }

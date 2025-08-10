@@ -4,7 +4,7 @@ function Dashboard(){
     return (
         <div >
             <NavBar />
-
+            <p>dashboard page</p>
         </div>
     );
 }

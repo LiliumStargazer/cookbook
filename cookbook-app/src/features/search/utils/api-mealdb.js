@@ -3,9 +3,10 @@ import api from '../../../lib/axios.js';
 // Cerca pasto per nome
 export async function searchMealByName(name) {
     try {
-        const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/search?s=${name}`);
+        const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/search-by-name?s=${name}`);
         return { success: true, data: response.data };
     } catch (error) {
+        console.log(error);
         return { success: false, error: error.response?.data?.message || 'Errore ricerca per nome' };
     }
 }
@@ -89,4 +90,3 @@ export async function filterMealByArea(area) {
         return { success: false, error: error.response?.data?.message || 'Errore filtro area' };
     }
 }
-
