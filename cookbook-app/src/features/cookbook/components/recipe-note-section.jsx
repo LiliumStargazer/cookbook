@@ -14,13 +14,12 @@ export default function RecipeNoteSection({
   recipe,
 }) {
   return (
-    <div className='border-t pt-3 mt-3'>
+    <div className='border-t pt-3 mt-1'>
       <div className='flex items-center justify-between mb-2'>
         <span className='text-sm font-medium text-gray-700 flex items-center'>
           <NotebookPen className='w-4 h-4 mr-1' />
           Nota personale
         </span>
-
         <Button
           variant='ghost'
           size='sm'
@@ -29,27 +28,52 @@ export default function RecipeNoteSection({
         >
           {isEditingNote ? <Save className='w-3 h-3 mr-1' /> : <PenLine className='w-3 h-3 mr-1' />}
         </Button>
+        {isEditingNote ? (
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={handleCancelEdit}
+            className='h-6 px-2 text-xs'
+            disabled={isLoading}
+          >
+            <X className='w-3 h-3 mr-1' />
+          </Button>
+        ) : (
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={handleRemoveNote}
+            className='h-6 px-2 text-xs'
+            disabled={isLoading || !recipe.note}
+          >
+            {isLoading ? (
+              <Loader2 className='animate-spin w-3 h-3 mr-1' />
+            ) : (
+              <Trash2 className='w-3 h-3 mr-1' />
+            )}
+          </Button>
+        )}
       </div>
-
-      {isEditingNote ? (
-        <div className='space-y-2'>
+      {/* Altezza fissa per evitare shift */}
+      <div className='h-24'>
+        {isEditingNote ? (
           <Textarea
             value={noteText}
             onChange={e => setNoteText(e.target.value)}
             placeholder='Aggiungi una nota personale per questa ricetta...'
-            className='min-h-[80px] text-sm'
+            className='h-full text-sm !resize-none leading-snug overflow-auto'
             disabled={isLoading}
           />
-        </div>
-      ) : (
-        <div className='text-sm text-gray-600 min-h-[60px]'>
-          {recipe.note ? (
-            <p className='bg-gray-50 p-2 rounded text-sm italic'>&ldquo;{recipe.note}&rdquo;</p>
-          ) : (
-            <p className='text-gray-400 italic'>Nessuna nota aggiunta</p>
-          )}
-        </div>
-      )}
+        ) : recipe.note ? (
+          <p className='h-full bg-gray-50 p-2 rounded text-sm italic leading-snug overflow-auto'>
+            &ldquo;{recipe.note}&rdquo;
+          </p>
+        ) : (
+          <div className='h-full flex items-center justify-start text-gray-400 italic text-sm leading-snug'>
+            Nessuna nota aggiunta
+          </div>
+        )}
+      </div>
     </div>
   );
 }

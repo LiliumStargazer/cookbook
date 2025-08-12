@@ -17,7 +17,6 @@ export function useCookbook() {
         toast.error(response.error);
       }
     } catch (err) {
-      console.error("Errore nel caricamento delle ricette:", err);
       toast.error(err.response?.data || "Errore nel caricamento delle ricette");
     } finally {
       setLoading(false);
@@ -31,7 +30,8 @@ export function useCookbook() {
 
   useEffect(() => {
     fetchUserRecipes().catch((error) => {
-      toast.error(error);
+      toast.error('sono in errore', error.message || "Errore nel caricamento delle ricette");
+
     });
   }, []);
 

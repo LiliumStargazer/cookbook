@@ -1,5 +1,4 @@
 import { useRecipeCard } from '@/features/cookbook/hooks/use-recipe-card.js';
-import { useNavigate } from 'react-router-dom';
 import RecipeNoteSection from './recipe-note-section.jsx';
 import RecipeCard from '../../../shared/components/recipe-card.jsx';
 

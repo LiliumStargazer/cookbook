@@ -9,5 +9,6 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.put('/user', auth, authController.updateUser);
 router.delete('/user', auth, authController.deleteUser);
+router.delete('/:id/note', auth, recipeController.deleteRecipeNote);
 
 module.exports = router;
