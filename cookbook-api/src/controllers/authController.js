@@ -30,14 +30,6 @@ exports.register = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashed, email, favoriteDishes });
     await user.save();
-    const emptyRecipe = new Recipe({
-      strMeal: 'Ricettario personale',
-      title: 'Ricettario personale',
-      ingredients: [],
-      instructions: '',
-      userId: user._id
-    });
-    await emptyRecipe.save();
     res.status(201).send('Utente registrato e ricettario creato');
   } catch (err) {
     console.error('Errore in register:', err);

@@ -11,6 +11,10 @@ const recipeSchema = new mongoose.Schema({
     strYoutube: String,
     strIngredients: [String], // array di ingredienti
     strMeasures: [String],    // array di misure
+    note: { type: String,
+        default: '',
+        trim: true,
+    }, // nota dell'utente
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 

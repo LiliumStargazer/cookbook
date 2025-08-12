@@ -36,6 +36,7 @@ exports.createRecipe = async (req, res) => {
 exports.getUserRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find({ userId: req.userId });
+    console.log('Ricette trovate:', recipes);
     res.json(recipes);
   } catch   {
     res.status(500).send('Errore nel recupero delle ricette');
@@ -53,4 +54,45 @@ exports.deleteRecipe = async (req, res) => {
   } catch (err) {
     res.status(500).send('Errore nella cancellazione');
   }
+};
+
+exports.updateRecipeNote = async (req, res) => {
+    try {
+        const { id } = req.params;          // idMeal
+        let { note } = req.body;
+
+        if (typeof note !== 'string')
+            return res.status(400).json({ error: 'Campo note mancante o non valido' });
+
+        note = note.trim(); // verrà comunque ritagliata anche da Mongoose
+
+        const recipe = await Recipe.findOne({ idMeal: id, userId: req.userId });
+        if (!recipe) return res.status(404).json({ error: 'Ricetta non trovata' });
+
+        recipe.note = note;            // '' permette di cancellare
+        await recipe.save();
+
+        res.json({ idMeal: recipe.idMeal, note: recipe.note });
+    } catch (err) {
+        console.error('Errore update nota:', err);
+        res.status(500).json({ error: 'Errore aggiornamento nota' });
+    }
+};
+
+exports.deleteRecipeNote = async (req, res) => {
+    try {
+        const { id } = req.params; // idMeal
+        const recipe = await Recipe.findOne({ idMeal: id, userId: req.userId });
+        if (!recipe) return res.status(404).json({ error: 'Ricetta non trovata' });
+
+        if (!recipe.note) return res.status(204).end(); // già vuota
+
+        recipe.note = ''; // oppure: recipe.note = undefined;
+        await recipe.save();
+        return res.status(204).end(); // nessun contenuto
+        // In alternativa: res.json({ idMeal: recipe.idMeal, note: recipe.note });
+    } catch (err) {
+        console.error('Errore delete nota:', err);
+        res.status(500).json({ error: 'Errore cancellazione nota' });
+    }
 };
