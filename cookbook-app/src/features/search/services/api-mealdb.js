@@ -7,7 +7,7 @@ export async function searchMealByName(name) {
         return { success: true, data: response.data };
     } catch (error) {
         console.log(error);
-        return { success: false, error: error.response?.data?.message || 'Errore ricerca per nome' };
+        return { success: false, error: error.response?.data || 'Errore ricerca per nome' };
     }
 }
 
@@ -17,7 +17,7 @@ export async function searchMealByLetter(letter) {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/search-by-letter?f=${letter}`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore ricerca per lettera' };
+        return { success: false, error: error.response?.data || 'Errore ricerca per lettera' };
     }
 }
 
@@ -27,7 +27,7 @@ export async function lookupMealById(id) {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/lookup?i=${id}`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore ricerca per ID' };
+        return { success: false, error: error.response?.data || 'Errore ricerca per ID' };
     }
 }
 
@@ -37,7 +37,7 @@ export async function getRandomMeal() {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/random`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore pasto casuale' };
+        return { success: false, error: error.response?.data || 'Errore pasto casuale' };
     }
 }
 
@@ -47,7 +47,7 @@ export async function getMealCategories() {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/categories`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore categorie' };
+        return { success: false, error: error.response?.data|| 'Errore categorie' };
     }
 }
 
@@ -57,7 +57,7 @@ export async function getMealList(type) {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/list?type=${type}`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore lista' };
+        return { success: false, error: error.response?.data || 'Errore lista' };
     }
 }
 
@@ -67,7 +67,7 @@ export async function filterMealByIngredient(ingredient) {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/filter-by-ingredient?i=${ingredient}`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore filtro ingrediente' };
+        return { success: false, error: error.response?.data || 'Errore filtro ingrediente' };
     }
 }
 
@@ -77,7 +77,7 @@ export async function filterMealByCategory(category) {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/filter-by-category?c=${category}`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore filtro categoria' };
+        return { success: false, error: error.response?.data || 'Errore filtro categoria' };
     }
 }
 
@@ -87,6 +87,6 @@ export async function filterMealByArea(area) {
         const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/filter-by-area?a=${area}`);
         return { success: true, data: response.data };
     } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Errore filtro area' };
+        return { success: false, error: error.response?.data || 'Errore filtro area' };
     }
 }

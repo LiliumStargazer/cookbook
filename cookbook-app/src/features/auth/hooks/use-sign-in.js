@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { loginUser } from '../utils/api-auth.js';
+import { loginUser } from '@/features/auth/services/api-auth.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function useSignIn() {
@@ -16,7 +16,6 @@ export default function useSignIn() {
         setLoading(true);
         setError(null);
         const result = await loginUser({ email, password });
-        console.log('sono result',result);
         setLoading(false);
         if (result.success) {
             navigate('/');

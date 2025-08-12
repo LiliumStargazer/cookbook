@@ -37,17 +37,20 @@ exports.getUserRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find({ userId: req.userId });
     res.json(recipes);
-  } catch {
+  } catch   {
     res.status(500).send('Errore nel recupero delle ricette');
   }
 };
 
 exports.deleteRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findOneAndDelete({ _id: req.params.id, userId: req.userId });
+      const recipe = await Recipe.findOneAndDelete({
+          idMeal: req.params.id,
+          userId: req.userId
+      });
     if (!recipe) return res.status(404).send('Ricetta non trovata');
     res.send('Ricetta eliminata');
-  } catch {
+  } catch (err) {
     res.status(500).send('Errore nella cancellazione');
   }
 };

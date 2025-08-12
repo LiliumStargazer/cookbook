@@ -22,7 +22,7 @@ export async function loginUser(loginCredentials) {
         return { success: true };
     } catch (error) {
         console.error('ERROR', error);
-        return { success: false, error: error.response?.data?.message || 'Errore di autenticazione' };
+        return { success: false, error: error.response?.data || 'Errore di autenticazione' };
     }
 }
 

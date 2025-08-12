@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { toast } from "sonner";
 import useAuth from "@/lib/store.js";
 import { useNavigate } from 'react-router-dom';
-import {deleteUser} from "@/features/profile/utils/api-profile.js";
+import {deleteUser} from "@/features/profile/services/api-profile.js";
 
 export function useDeleteAccount() {
     const [loading, setLoading] = useState(false);

@@ -8,7 +8,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import useAuth from '../../auth/utils/store';
+import useAuth from '@/features/auth/services/store';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('home');

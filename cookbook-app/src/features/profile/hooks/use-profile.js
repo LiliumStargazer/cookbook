@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAuth from "@/lib/store.js";
-import {updateUser} from "@/features/profile/utils/api-profile.js";
+import {updateUser} from "@/features/profile/services/api-profile.js";
 import { toast } from "sonner";
 
 export function useProfile() {

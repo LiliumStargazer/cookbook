@@ -7,7 +7,7 @@ import {
     filterMealByArea,
     getMealList,
     filterMealByIngredient
-} from '../utils/api-mealdb.js';
+} from '@/features/search/services/api-mealdb.js';
 import { toast } from "sonner";
 
 export function useSearch() {
