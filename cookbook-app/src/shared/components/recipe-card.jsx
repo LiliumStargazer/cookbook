@@ -2,8 +2,9 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Button } from '@/components/ui/button.jsx';
 import { Badge } from '@/components/ui/badge.jsx';
 import { useNavigate } from 'react-router-dom';
+import { Heart } from 'lucide-react';
 
-export default function RecipeCard({ recipe, children }) {
+export default function RecipeCard({ recipe, children, isInCookbook }) {
   const navigate = useNavigate();
 
   const handleViewRecipe = () => {
@@ -13,6 +14,14 @@ export default function RecipeCard({ recipe, children }) {
   return (
     <Card className='hover:shadow-lg transition-shadow'>
       <div className='aspect-video relative overflow-hidden rounded-t-lg'>
+        {isInCookbook && (
+          <Badge
+            variant='!default'
+            className='absolute top-2 right-2 !bg-primary border-0 text-white'
+          >
+            <Heart /> In Cookbook
+          </Badge>
+        )}
         <img
           src={recipe.strMealThumb}
           alt={recipe.strMeal}

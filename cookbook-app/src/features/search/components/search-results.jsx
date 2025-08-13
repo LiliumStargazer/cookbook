@@ -1,7 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card.jsx';
 import RecipeCard from '@/shared/components/recipe-card.jsx';
+import { useCookbook } from '@/features/cookbook/hooks/use-cookbook.js';
 
 export default function SearchResults({ meals, loading }) {
+  const { isInCookbook } = useCookbook();
   if (loading) {
     return (
       <div className='text-center py-8'>
@@ -25,7 +27,7 @@ export default function SearchResults({ meals, loading }) {
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {meals.map(meal => (
-        <RecipeCard key={meal.idMeal} recipe={meal} />
+        <RecipeCard key={meal.idMeal} recipe={meal} isInCookbook={isInCookbook(meal.idMeal)} />
       ))}
     </div>
   );
