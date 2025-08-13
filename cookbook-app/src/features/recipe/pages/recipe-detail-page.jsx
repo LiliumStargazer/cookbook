@@ -10,10 +10,12 @@ import InstructionsCard from '../components/instructions-card.jsx';
 import ReviewsSection from '../../reviews/components/reviews-section.jsx';
 
 export default function RecipeDetailPage() {
-  const { idMeal } = useParams();
+  const { idRecipe } = useParams();
   const navigate = useNavigate();
-  const { meal, loading } = useMealDetail(idMeal);
+  const { meal, loading } = useMealDetail(idRecipe);
   const ingredients = useIngredients(meal);
+
+  console.log(idRecipe);
 
   const handleBackToSearch = () => navigate('/search');
 
@@ -59,7 +61,7 @@ export default function RecipeDetailPage() {
           </div>
         </div>
 
-        <ReviewsSection recipeId={meal.idMeal} />
+        <ReviewsSection idRecipe={meal.idRecipe} />
       </div>
     </div>
   );

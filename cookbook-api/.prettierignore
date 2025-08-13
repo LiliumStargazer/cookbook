@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+coverage/
+.nyc_output/
+logs/
+.cache/
+.idea/
+
+# static artifacts (mantieni HTML/CSS prettificabili fuori da minificati e mappe)
+public/**/*.min.*
+public/**/*.map
+
+# lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# env
+.env
+.env.*
+
+# logs
+*.log

@@ -28,7 +28,7 @@ export function useCookbook() {
 
   // Verifica se una ricetta è già nel ricettario
   const isInCookbook = mealId => {
-    return userRecipes.some(recipe => recipe.idMeal === mealId);
+    return userRecipes.some(recipe => recipe.idRecipe === mealId);
   };
 
   useEffect(() => {

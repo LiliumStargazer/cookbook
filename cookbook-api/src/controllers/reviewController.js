@@ -2,19 +2,15 @@ const Review = require('../models/Review');
 
 // Crea una recensione
 exports.createReview = async (req, res) => {
-  console.log('sono req body', req.body);
-  console.log('sono req userId', req.userId);
-  console.log('taste',req.body.rating);
-  console.log('comment',req.body.comment);
-  console.log('recipeId',req.body.recipeId);
-
   if (!req.userId) return res.status(401).send('Utente non autenticato');
   try {
     const review = new Review({
-      idMeal: req.body.recipeId,
+      idRecipe: req.body.idRecipe,
       userId: req.userId,
       rating: req.body.rating,
-      comment: req.body.comment
+      preparationDate: req.body.preparationDate,
+      difficulty: req.body.difficulty,
+      comment: req.body.comment,
     });
     await review.save();
     res.status(201).json(review);
@@ -27,7 +23,7 @@ exports.createReview = async (req, res) => {
 // tutte le recensioni per una ricetta
 exports.getReviewsByMeal = async (req, res) => {
   try {
-    const reviews = await Review.find({ idMeal: req.params.idMeal });
+    const reviews = await Review.find({ idRecipe: req.params.idRecipe });
     res.json(reviews);
   } catch {
     res.status(500).send('Errore nel recupero delle recensioni');

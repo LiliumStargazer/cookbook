@@ -8,7 +8,7 @@ export default function RecipeCard({ recipe, children, isInCookbook }) {
   const navigate = useNavigate();
 
   const handleViewRecipe = () => {
-    navigate(`/meal/${recipe.idMeal}`);
+    navigate(`/meal/${recipe.idRecipe}`);
   };
 
   return (

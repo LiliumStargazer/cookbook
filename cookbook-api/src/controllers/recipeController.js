@@ -46,7 +46,7 @@ exports.getUserRecipes = async (req, res) => {
 exports.deleteRecipe = async (req, res) => {
   try {
       const recipe = await Recipe.findOneAndDelete({
-          idMeal: req.params.id,
+          idRecipe: req.params.id,
           userId: req.userId
       });
     if (!recipe) return res.status(404).send('Ricetta non trovata');
@@ -58,7 +58,7 @@ exports.deleteRecipe = async (req, res) => {
 
 exports.updateRecipeNote = async (req, res) => {
     try {
-        const { id } = req.params;          // idMeal
+        const { id } = req.params;          // idRecipe
         let { note } = req.body;
 
         if (typeof note !== 'string')
@@ -74,7 +74,7 @@ exports.updateRecipeNote = async (req, res) => {
         recipe.note = note;            // '' permette di cancellare
         await recipe.save();
 
-        res.json({ idMeal: recipe._id, note: recipe.note });
+        res.json({ idRecipe: recipe._id, note: recipe.note });
     } catch (err) {
         console.error('Errore update nota:', err);
         res.status(500).json({ error: 'Errore aggiornamento nota' });
@@ -83,7 +83,7 @@ exports.updateRecipeNote = async (req, res) => {
 
 exports.deleteRecipeNote = async (req, res) => {
     try {
-        const { id } = req.params; // idMeal
+        const { id } = req.params; // idRecipe
         const recipe = await Recipe.findOne({ _id: id, userId: req.userId });
         if (!recipe) return res.status(404).json({ error: 'Ricetta non trovata' });
 
@@ -92,7 +92,7 @@ exports.deleteRecipeNote = async (req, res) => {
         recipe.note = ''; // oppure: recipe.note = undefined;
         await recipe.save();
         return res.status(204).end(); // nessun contenuto
-        // In alternativa: res.json({ idMeal: recipe.idMeal, note: recipe.note });
+        // In alternativa: res.json({ idRecipe: recipe.idRecipe, note: recipe.note });
     } catch (err) {
         console.error('Errore delete nota:', err);
         res.status(500).json({ error: 'Errore cancellazione nota' });

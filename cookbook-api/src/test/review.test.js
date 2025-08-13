@@ -35,7 +35,7 @@ describe('Review Routes', () => {
       .post('/review')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        idMeal: testMealId,
+        idRecipe: testMealId,
         difficulty: 3,
         taste: 4,
         preparationDate: new Date().toISOString(),
@@ -47,7 +47,7 @@ describe('Review Routes', () => {
     reviewId = res.body._id;
   });
 
-  test('GET /review/meal/:idMeal restituisce le recensioni della ricetta', async () => {
+  test('GET /review/meal/:idRecipe restituisce le recensioni della ricetta', async () => {
     const res = await request(app)
       .get(`/review/meal/${testMealId}`)
       .set('Authorization', `Bearer ${token}`);

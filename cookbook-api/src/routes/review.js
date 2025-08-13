@@ -5,7 +5,7 @@ const reviewController = require('../controllers/reviewController');
 const auth = require('../middleware/auth');
 
 router.post('/', auth, reviewController.createReview);
-router.get('/:idMeal',auth, reviewController.getReviewsByMeal);
+router.get('/:idRecipe',auth, reviewController.getReviewsByMeal);
 router.delete('/:id',auth,  reviewController.deleteReview);
 
 module.exports = router;

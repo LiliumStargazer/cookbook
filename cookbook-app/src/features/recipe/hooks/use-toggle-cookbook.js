@@ -6,7 +6,7 @@ import { useCookbook } from '@/features/cookbook/hooks/use-cookbook.js';
 export function useToggleCookbook(meal) {
   const [loading, setLoading] = useState(false);
   const { isInCookbook, refetch } = useCookbook();
-  const isInUserCookbook = isInCookbook(meal.idMeal);
+  const isInUserCookbook = isInCookbook(meal.idRecipe);
 
   const toggleCookbook = async () => {
     try {
@@ -14,7 +14,7 @@ export function useToggleCookbook(meal) {
 
       let result;
       if (isInUserCookbook) {
-        result = await removeFromCookbook(meal.idMeal);
+        result = await removeFromCookbook(meal.idRecipe);
       } else {
         result = await addToCookBook(meal);
       }
