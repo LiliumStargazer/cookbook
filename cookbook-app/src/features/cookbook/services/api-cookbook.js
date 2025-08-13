@@ -13,7 +13,9 @@ export async function getUserRecipes() {
 // Aggiungi o aggiorna una nota per una ricetta
 export async function updateRecipeNote(recipeId, note) {
   try {
-    const response = await api.put(`${import.meta.env.VITE_RECIPE_URL}/${recipeId}/note`, { note });
+    const response = await api.patch(`${import.meta.env.VITE_RECIPE_URL}/${recipeId}/note`, {
+      note,
+    });
     return { success: true, data: response.data };
   } catch (error) {
     return {

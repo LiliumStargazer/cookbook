@@ -7,7 +7,7 @@ const auth = require('../middleware/auth');
 router.post('/', auth, recipeController.createRecipe);
 router.get('/', auth, recipeController.getUserRecipes);
 router.delete('/:id', auth, recipeController.deleteRecipe);
-router.patch('/recipes/:id/note', auth, recipeController.updateRecipeNote);
+router.patch('/:id/note', auth, recipeController.updateRecipeNote);
 router.delete('/:id/note', auth, recipeController.deleteRecipeNote);
 
 module.exports = router;

@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { toast } from "sonner";
-import { useCookbook } from "@/features/cookbook/hooks/use-cookbook.js";
-import {
-  addToCookBook,
-  removeFromCookbook,
-} from "@/features/recipe/services/api-recipes.js";
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { addToCookBook, removeFromCookbook } from '@/features/recipe/services/api-recipes.js';
+import { useCookbook } from '@/features/cookbook/hooks/use-cookbook.js';
 
 export function useToggleCookbook(meal) {
   const [loading, setLoading] = useState(false);
@@ -21,26 +18,22 @@ export function useToggleCookbook(meal) {
       } else {
         result = await addToCookBook(meal);
       }
-      console.warn("Toggle cookbook result:", result);
+      console.warn('Toggle cookbook result:', result);
 
       if (result.success) {
         await refetch(); // Aggiorna le ricette dell'utente prima di rimuovere
         toast.success(
-          isInUserCookbook
-            ? "Ricetta rimossa dal ricettario"
-            : "Ricetta aggiunta al ricettario",
+          isInUserCookbook ? 'Ricetta rimossa dal ricettario' : 'Ricetta aggiunta al ricettario',
         );
         console.log(
-          isInUserCookbook
-            ? "Ricetta rimossa dal ricettario"
-            : "Ricetta aggiunta al ricettario",
+          isInUserCookbook ? 'Ricetta rimossa dal ricettario' : 'Ricetta aggiunta al ricettario',
         );
       } else {
         toast.error(result.error);
       }
     } catch (err) {
-      console.error("Errore nella gestione della ricetta:", err);
-      toast.error(err.response?.data || "Errore nella gestione della ricetta");
+      console.error('Errore nella gestione della ricetta:', err);
+      toast.error(err.response?.data || 'Errore nella gestione della ricetta');
     } finally {
       setLoading(false);
     }

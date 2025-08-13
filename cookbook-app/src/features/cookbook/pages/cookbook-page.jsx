@@ -3,7 +3,7 @@ import CookbookEmptyState from '@/features/cookbook/components/cookbook-empty-st
 import CookbookLoadingState from '@/features/cookbook/components/cookbook-loading-state.jsx';
 import CookbookFilters from '@/features/cookbook/components/cookbook-filters.jsx';
 import CookbookGrid from '@/features/cookbook/components/cookbook-grid.jsx';
-import { useCookbookPage } from '@/features/cookbook/hooks/use-cookbook-page.js';
+import { useCookbook } from '@/features/cookbook/hooks/use-cookbook.js';
 import NavBar from '@/shared/components/navbar.jsx';
 
 export default function CookbookPage() {
@@ -19,9 +19,9 @@ export default function CookbookPage() {
     setSearchTerm,
     setSelectedCategory,
     setSelectedArea,
-    handleNoteUpdate,
+    fetchUserRecipes,
     handleClearFilters,
-  } = useCookbookPage();
+  } = useCookbook();
 
   if (loading) {
     return <CookbookLoadingState />;
@@ -50,7 +50,7 @@ export default function CookbookPage() {
               onClearFilters={handleClearFilters}
             />
 
-            <CookbookGrid filteredRecipes={filteredRecipes} onNoteUpdate={handleNoteUpdate} />
+            <CookbookGrid filteredRecipes={filteredRecipes} onNoteUpdate={fetchUserRecipes} />
           </>
         )}
       </div>
