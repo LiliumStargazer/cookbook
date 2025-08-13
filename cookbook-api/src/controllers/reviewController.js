@@ -2,14 +2,17 @@ const Review = require('../models/Review');
 
 // Crea una recensione
 exports.createReview = async (req, res) => {
+  console.log('sono req body', req.body);
+  console.log('sono req userId', req.userId);
+  console.log('taste',req.body.rating);
+  console.log('comment',req.body.comment);
+  console.log('recipeId',req.body.recipeId);
+
   if (!req.userId) return res.status(401).send('Utente non autenticato');
   try {
     const review = new Review({
-      idMeal: req.body.idMeal,
+      idMeal: req.body.recipeId,
       userId: req.userId,
-      preparationDate: req.body.preparationDate,
-      difficulty: req.body.difficulty,
-      taste: req.body.taste,
       rating: req.body.rating,
       comment: req.body.comment
     });

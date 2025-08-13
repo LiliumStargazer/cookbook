@@ -17,7 +17,7 @@ export default function AppRoutes() {
       <Routes>
         {/* Pagine per utenti NON loggati */}
         <Route
-          path="/signin"
+          path='/signin'
           element={
             <RequireGuest>
               <SignInPage />
@@ -25,7 +25,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/signup"
+          path='/signup'
           element={
             <RequireGuest>
               <SignUpPage />
@@ -33,10 +33,10 @@ export default function AppRoutes() {
           }
         />
         {/* Pagina Unauthorized */}
-        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path='/unauthorized' element={<UnauthorizedPage />} />
         {/* Rotte protette per utenti loggati */}
         <Route
-          path="/"
+          path='/'
           element={
             <RequireAuth>
               <Dashboard />
@@ -44,7 +44,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/profile"
+          path='/profile'
           element={
             <RequireAuth>
               <ProfilePage />
@@ -52,7 +52,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/search"
+          path='/search'
           element={
             <RequireAuth>
               <SearchPage />
@@ -60,7 +60,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/meal/:id"
+          path='/meal/:idMeal'
           element={
             <RequireAuth>
               <RecipeDetailPage />
@@ -68,7 +68,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/cookbook/"
+          path='/cookbook/'
           element={
             <RequireAuth>
               <CookbookPage />

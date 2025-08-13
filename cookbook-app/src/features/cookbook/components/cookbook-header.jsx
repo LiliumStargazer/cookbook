@@ -7,7 +7,7 @@ export default function CookbookHeader({ userRecipes }) {
   return (
     <div className='mb-8'>
       <div className='flex items-center gap-3 mb-4'>
-        <ChefHat className='w-8 h-8 text-orange-500' />
+        <ChefHat className='w-8 h-8 text-red-600' />
         <h1 className='text-3xl font-bold text-gray-900'>Il Mio Ricettario</h1>
       </div>
       <p className='text-gray-600'>
