@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 
 export function useSearch() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [recipes, setRecipes] = useState([]);
+  const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -47,14 +47,14 @@ export function useSearch() {
       if (areasResult.success) {
         const areasWithAll = [
           { strArea: 'None' }, // Opzione vuota per "Tutte le aree"
-          ...(areasResult.data.recipes || []),
+          ...(areasResult.data.meals || []),
         ];
         setAreas(areasWithAll);
       }
       if (ingredientResult.success) {
         const ingredientResultWithAll = [
           { strIngredient: 'None' }, // Opzione vuota per "Tutte le aree"
-          ...(ingredientResult.data.recipes || []),
+          ...(ingredientResult.data.meals || []),
         ];
         setIngredients(ingredientResultWithAll);
       }
@@ -73,18 +73,19 @@ export function useSearch() {
     setLoading(true);
     try {
       const result = await searchMealByName(searchQuery);
+      console.log(result);
       if (result.success) {
-        setRecipes(result.data.recipes || []);
-        if (!result.data.recipes || result.data.recipes.length === 0) {
+        setMeals(result.data.meals || []);
+        if (!result.data.meals || result.data.meals.length === 0) {
           toast.info('Nessuna ricetta trovata');
         }
       } else {
         toast.error(result.error);
-        setRecipes([]);
+        setMeals([]);
       }
     } catch (error) {
       toast.error('Errore durante la ricerca', error);
-      setRecipes([]);
+      setMeals([]);
     } finally {
       setLoading(false);
     }
@@ -95,7 +96,7 @@ export function useSearch() {
     try {
       const result = await getRandomMeal();
       if (result.success) {
-        setRecipes(result.data.recipes || []);
+        setMeals(result.data.meals || []);
       } else {
         toast.error(result.error);
       }
@@ -114,7 +115,7 @@ export function useSearch() {
     try {
       const result = await filterMealByCategory(category);
       if (result.success) {
-        setRecipes(result.data.recipes || []);
+        setMeals(result.data.meals || []);
       } else {
         toast.error(result.error);
       }
@@ -130,14 +131,14 @@ export function useSearch() {
     if (!area) return;
     // Se l'area è "None", non applicare il filtro
     if (area === 'None') {
-      setRecipes([]);
+      setMeals([]);
       return;
     }
     setLoading(true);
     try {
       const result = await filterMealByArea(area);
       if (result.success) {
-        setRecipes(result.data.recipes || []);
+        setMeals(result.data.meals || []);
       } else {
         toast.error(result.error);
       }
@@ -153,14 +154,14 @@ export function useSearch() {
     if (!ingredient) return;
     // Se l'ingrediente è "None", non applicare il filtro
     if (ingredient === 'None') {
-      setRecipes([]);
+      setMeals([]);
       return;
     }
     setLoading(true);
     try {
       const result = await filterMealByIngredient(ingredient);
       if (result.success) {
-        setRecipes(result.data.recipes || []);
+        setMeals(result.data.meals || []);
       } else {
         toast.error(result.error);
       }
@@ -175,7 +176,7 @@ export function useSearch() {
     setSelectedCategory('');
     setSelectedArea('');
     setSearchQuery('');
-    setRecipes([]);
+    setMeals([]);
   };
 
   const toggleFilters = () => {
@@ -185,7 +186,7 @@ export function useSearch() {
   return {
     // State
     searchQuery,
-    recipes,
+    meals,
     loading,
     categories,
     areas,

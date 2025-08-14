@@ -1,17 +1,16 @@
 import axios from 'axios';
-import useAuth from "./store.js";
-
+import useAuth from './store.js';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5173',
 });
 
-api.interceptors.request.use((config) => {
-    const token = useAuth.getState().token;
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
+api.interceptors.request.use(config => {
+  const token = useAuth.getState().token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default api;

@@ -60,7 +60,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path='/meal/:idRecipe'
+          path='/meal/:idMeal'
           element={
             <RequireAuth>
               <RecipeDetailPage />

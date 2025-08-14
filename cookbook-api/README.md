@@ -48,7 +48,7 @@ npm test
 - `GET /recipe` - Visualizza ricette utente
 - `DELETE /recipe/:id` - Cancella ricetta
 - `POST /review` - Crea recensione
-- `GET /review/meal/:idRecipe` - Visualizza recensioni di una ricetta
+- `GET /review/meal/:idMeal` - Visualizza recensioni di una ricetta
 - `DELETE /review/:id` - Cancella recensione
 
 

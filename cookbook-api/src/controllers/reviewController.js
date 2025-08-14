@@ -5,7 +5,7 @@ exports.createReview = async (req, res) => {
   if (!req.userId) return res.status(401).send('Utente non autenticato');
   try {
     const review = new Review({
-      idRecipe: req.body.idRecipe,
+      idMeal: req.body.idMeal,
       userId: req.userId,
       rating: req.body.rating,
       preparationDate: req.body.preparationDate,
@@ -23,7 +23,7 @@ exports.createReview = async (req, res) => {
 // tutte le recensioni per una ricetta
 exports.getReviewsByMeal = async (req, res) => {
   try {
-    const reviews = await Review.find({ idRecipe: req.params.idRecipe });
+    const reviews = await Review.find({ idMeal: req.params.idMeal });
     res.json(reviews);
   } catch {
     res.status(500).send('Errore nel recupero delle recensioni');

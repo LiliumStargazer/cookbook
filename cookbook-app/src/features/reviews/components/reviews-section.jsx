@@ -5,9 +5,9 @@ import ReviewForm from './review-form.jsx';
 import useReviews from '../hooks/useReviews.js';
 import useAddReview from '../hooks/useAddReview.js';
 
-export default function ReviewsSection({ idRecipe }) {
-  const { reviews, loading } = useReviews(idRecipe);
-  const { submitReview, loading: sending } = useAddReview(idRecipe);
+export default function ReviewsSection({ idMeal }) {
+  const { reviews, loading } = useReviews(idMeal);
+  const { submitReview, loading: sending } = useAddReview(idMeal);
 
   const handleSubmit = useCallback(data => submitReview(data), [submitReview]);
 

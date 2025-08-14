@@ -4,11 +4,11 @@ import { Badge } from '@/components/ui/badge.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
-export default function RecipeCard({ recipe, children, isInCookbook }) {
+export default function RecipeCard({ meal, children, isInCookbook }) {
   const navigate = useNavigate();
 
   const handleViewRecipe = () => {
-    navigate(`/meal/${recipe.idRecipe}`);
+    navigate(`/meal/${meal.idMeal}`);
   };
 
   return (
@@ -22,17 +22,13 @@ export default function RecipeCard({ recipe, children, isInCookbook }) {
             <Heart /> In Cookbook
           </Badge>
         )}
-        <img
-          src={recipe.strMealThumb}
-          alt={recipe.strMeal}
-          className='w-full h-full object-cover'
-        />
+        <img src={meal.strMealThumb} alt={meal.strMeal} className='w-full h-full object-cover' />
       </div>
       <CardHeader>
-        <CardTitle className='text-lg'>{recipe.strMeal}</CardTitle>
-        {recipe.strCategory && (
+        <CardTitle className='text-lg'>{meal.strMeal}</CardTitle>
+        {meal.strCategory && (
           <Badge variant='outline' className='w-fit'>
-            {recipe.strCategory}
+            {meal.strCategory}
           </Badge>
         )}
       </CardHeader>

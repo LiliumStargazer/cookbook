@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { addReview } from '@/features/reviews/services/api-reviews.js';
 import { toast } from 'sonner';
 
-export default function useAddReview(idRecipe) {
+export default function useAddReview(idMeal) {
   const [loading, setLoading] = useState(false);
 
   const submitReview = async ({ rating, preparationDate, difficulty, comment }) => {
     try {
       setLoading(true);
-      const response = await addReview({ idRecipe, rating, preparationDate, difficulty, comment });
+      const response = await addReview({ idMeal, rating, preparationDate, difficulty, comment });
       console.log(response);
       if (response.success) {
         window.location.reload();

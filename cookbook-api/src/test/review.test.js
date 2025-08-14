@@ -31,23 +31,20 @@ afterAll(async () => {
 
 describe('Review Routes', () => {
   test('POST /review crea una recensione', async () => {
-    const res = await request(app)
-      .post('/review')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        idRecipe: testMealId,
-        difficulty: 3,
-        taste: 4,
-        preparationDate: new Date().toISOString(),
-        rating: 5,
-        comment: 'Ottima!'
-      });
+    const res = await request(app).post('/review').set('Authorization', `Bearer ${token}`).send({
+      idMeal: testMealId,
+      difficulty: 3,
+      taste: 4,
+      preparationDate: new Date().toISOString(),
+      rating: 5,
+      comment: 'Ottima!',
+    });
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('_id');
     reviewId = res.body._id;
   });
 
-  test('GET /review/meal/:idRecipe restituisce le recensioni della ricetta', async () => {
+  test('GET /review/meal/:idMeal restituisce le recensioni della ricetta', async () => {
     const res = await request(app)
       .get(`/review/meal/${testMealId}`)
       .set('Authorization', `Bearer ${token}`);
@@ -63,4 +60,3 @@ describe('Review Routes', () => {
     expect(res.statusCode).toBe(204);
   });
 });
-

@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { lookupMealById } from '@/features/search/services/api-mealdb.js';
 import { toast } from 'sonner';
 
-export function useMealDetail(idRecipe) {
+export function useMealDetail(idMeal) {
   const [meal, setMeal] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMealDetail = async () => {
-      if (!idRecipe) {
+      if (!idMeal) {
         setLoading(false);
         return;
       }
@@ -16,7 +16,7 @@ export function useMealDetail(idRecipe) {
       setLoading(true);
 
       try {
-        const result = await lookupMealById(idRecipe);
+        const result = await lookupMealById(idMeal);
 
         if (result.success && result.data.meals && result.data.meals[0]) {
           setMeal(result.data.meals[0]);
@@ -32,7 +32,7 @@ export function useMealDetail(idRecipe) {
     };
 
     fetchMealDetail();
-  }, [idRecipe]);
+  }, [idMeal]);
 
   return {
     meal,
