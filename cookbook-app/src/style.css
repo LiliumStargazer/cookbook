@@ -86,4 +86,9 @@
   [data-slot="button"] {
     border-radius: var(--radius-lg) !important;
   }
+
+  .destructive-text {
+    color: var(--destructive);
+  }
+
 }

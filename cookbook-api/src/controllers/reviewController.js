@@ -1,12 +1,17 @@
 const Review = require('../models/Review');
+const User = require('../models/User');
 
 // Crea una recensione
 exports.createReview = async (req, res) => {
   if (!req.userId) return res.status(401).send('Utente non autenticato');
+  const user = await User.findById(req.userId);
+  const username = user.username;
+
   try {
     const review = new Review({
       idMeal: req.body.idMeal,
       userId: req.userId,
+      username: username,
       rating: req.body.rating,
       preparationDate: req.body.preparationDate,
       difficulty: req.body.difficulty,
@@ -25,7 +30,8 @@ exports.getReviewsByMeal = async (req, res) => {
   try {
     const reviews = await Review.find({ idMeal: req.params.idMeal });
     res.json(reviews);
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.status(500).send('Errore nel recupero delle recensioni');
   }
 };
@@ -38,6 +44,7 @@ exports.deleteReview = async (req, res) => {
     if (result.deletedCount === 0) return res.status(404).send('Recensione non trovata');
     res.status(204).send();
   } catch (err) {
+    console.error(err);
     res.status(500).send('Errore nella cancellazione della recensione');
   }
 };
