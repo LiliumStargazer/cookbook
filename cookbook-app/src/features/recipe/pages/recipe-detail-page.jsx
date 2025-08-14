@@ -15,8 +15,6 @@ export default function RecipeDetailPage() {
   const { meal, loading } = useMealDetail(idMeal);
   const ingredients = useIngredients(meal);
 
-  console.log(idMeal);
-
   const handleBackToSearch = () => navigate('/search');
 
   if (loading) {

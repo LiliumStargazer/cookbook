@@ -5,16 +5,12 @@ import { toast } from 'sonner';
 export default function useAddReview(idMeal) {
   const [loading, setLoading] = useState(false);
 
-  const submitReview = async ({ rating, preparationDate, difficulty, comment }) => {
+  const submitReview = async ({ comment, rating, difficulty, preparationDate }) => {
     try {
       setLoading(true);
       const response = await addReview({ idMeal, rating, preparationDate, difficulty, comment });
       console.log(response);
-      if (response.success) {
-        window.location.reload();
-      } else {
-        toast.error(response.message || "Errore nell'invio della recensione");
-      }
+      if (!response.success) toast.error(response.message || "Errore nell'invio della recensione");
     } catch (err) {
       toast.error(err.message || "Errore nell'invio della recensione");
     } finally {

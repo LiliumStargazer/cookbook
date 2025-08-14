@@ -12,13 +12,14 @@ export function DayPicker({ date, setDate }) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className='flex flex-col gap-3'>
-      <Label htmlFor='date' className='px-1'>
-        Preparation Date
-      </Label>
+    <div className='flex flex-row gap-2 items-center'>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant='outline' id='date' className='w-48 justify-between font-normal'>
+          <Button
+            variant='outline'
+            id='date'
+            className='w-32 justify-between font-normal h-6 !text-sm p-3'
+          >
             {date ? date.toLocaleDateString() : 'Select date'}
             <ChevronDownIcon />
           </Button>
@@ -34,6 +35,9 @@ export function DayPicker({ date, setDate }) {
             }}
           />
         </PopoverContent>
+        <Label htmlFor='date' className='px-1'>
+          Preparation Date
+        </Label>
       </Popover>
     </div>
   );

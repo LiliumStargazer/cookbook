@@ -21,6 +21,7 @@ export function useMealDetail(idMeal) {
         if (result.success && result.data.meals && result.data.meals[0]) {
           setMeal(result.data.meals[0]);
         } else {
+          console.log('sono in errore', result);
           toast.error(result.message || 'Ricetta non trovata');
         }
       } catch (error) {

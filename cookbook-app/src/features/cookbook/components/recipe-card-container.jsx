@@ -15,7 +15,7 @@ export default function RecipeCardContainer({ recipe, onNoteUpdate }) {
   } = useRecipeCard(recipe, onNoteUpdate);
 
   return (
-    <RecipeCard recipe={recipe}>
+    <RecipeCard meal={recipe}>
       <RecipeNoteSection
         isEditingNote={isEditingNote}
         noteText={noteText}

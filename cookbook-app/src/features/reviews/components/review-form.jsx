@@ -15,7 +15,7 @@ export default function ReviewForm({ onSubmit, isLoading }) {
       className='space-y-3'
       onSubmit={e => {
         e.preventDefault();
-        if (rating > 0 && comment.trim()) {
+        if (rating > 0 && difficulty > 0 && preparationDate && comment.trim()) {
           onSubmit({ comment, rating, difficulty, preparationDate });
         }
       }}
@@ -33,7 +33,7 @@ export default function ReviewForm({ onSubmit, isLoading }) {
             <Star className='w-5 h-5' />
           </button>
         ))}
-        <span className='ml-2 text-sm text-gray-500'>{rating > 0 ? `${rating}/5` : 'Valuta'}</span>
+        <span className='ml-2 text-sm text-black'>{rating > 0 ? `${rating}/5` : 'Valuta'}</span>
         {/* Difficoltà */}
         {[1, 2, 3, 4, 5].map(star => (
           <button
@@ -46,7 +46,7 @@ export default function ReviewForm({ onSubmit, isLoading }) {
             <Star className='w-5 h-5' />
           </button>
         ))}
-        <span className='ml-2 text-sm text-gray-500'>
+        <span className='ml-2 text-sm text-black'>
           {difficulty > 0 ? `${difficulty}/5` : 'Difficoltà'}
         </span>
         {/* Data */}

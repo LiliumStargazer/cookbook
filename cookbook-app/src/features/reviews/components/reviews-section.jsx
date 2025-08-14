@@ -6,10 +6,16 @@ import useReviews from '../hooks/useReviews.js';
 import useAddReview from '../hooks/useAddReview.js';
 
 export default function ReviewsSection({ idMeal }) {
-  const { reviews, loading } = useReviews(idMeal);
+  const { reviews, loading, refetch } = useReviews(idMeal);
   const { submitReview, loading: sending } = useAddReview(idMeal);
 
-  const handleSubmit = useCallback(data => submitReview(data), [submitReview]);
+  const handleSubmit = useCallback(
+    async data => {
+      await submitReview(data);
+      refetch();
+    },
+    [submitReview, refetch],
+  );
 
   return (
     <Card className='mt-8'>

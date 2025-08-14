@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getReviews } from '@/features/reviews/services/api-reviews.js';
 import { toast } from 'sonner';
 
-export default function useReviews(recipeId) {
+export default function useReviews(idMeal) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      setLoading(true);
-      try {
-        const response = await getReviews(recipeId);
-        if (response.success) {
-          setReviews(response.data);
-        } else {
-          toast.error(response.message);
-        }
-      } catch (err) {
-        console.error('Errore nel caricamento delle recensioni:', err);
-        toast.error(err.message || 'Errore nel caricamento delle recensioni');
-      } finally {
-        setLoading(false);
+  const fetchReviews = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await getReviews(idMeal);
+      if (response.success) {
+        setReviews(response.data);
+      } else {
+        toast.error(response.message || 'Errore nel caricamento delle recensioni');
       }
-    };
-    fetchReviews();
-  }, [recipeId]);
+    } catch (err) {
+      toast.error(err.message || 'Errore nel caricamento delle recensioni');
+    } finally {
+      setLoading(false);
+    }
+  }, [idMeal]);
 
-  return { reviews, loading };
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
+
+  return { reviews, loading, refetch: fetchReviews };
 }

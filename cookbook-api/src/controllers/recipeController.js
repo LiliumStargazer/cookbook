@@ -36,7 +36,6 @@ exports.createRecipe = async (req, res) => {
 exports.getUserRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find({ userId: req.userId });
-    console.log('Ricette trovate:', recipes);
     res.json(recipes);
   } catch {
     res.status(500).send('Errore nel recupero delle ricette');
@@ -67,10 +66,8 @@ exports.updateRecipeNote = async (req, res) => {
     note = note.trim(); // verrà comunque ritagliata anche da Mongoose
 
     const recipe = await Recipe.findOne({ _id: id, userId: req.userId });
-    console.warn('ricetta:', recipe);
     if (!recipe) return res.status(404).json({ error: 'Ricetta non trovata' });
-
-    recipe.note = note; // '' permette di cancellare
+    recipe.note = note;
     await recipe.save();
 
     res.json({ idMeal: recipe._id, note: recipe.note });
@@ -91,7 +88,6 @@ exports.deleteRecipeNote = async (req, res) => {
     recipe.note = ''; // oppure: recipe.note = undefined;
     await recipe.save();
     return res.status(204).end(); // nessun contenuto
-    // In alternativa: res.json({ idMeal: recipe.idMeal, note: recipe.note });
   } catch (err) {
     console.error('Errore delete nota:', err);
     res.status(500).json({ error: 'Errore cancellazione nota' });
