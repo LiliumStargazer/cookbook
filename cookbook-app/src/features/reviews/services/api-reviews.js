@@ -3,7 +3,6 @@ import api from '../../../lib/axios.js';
 // Crea una nuova recensione
 export async function addReview(data) {
   try {
-    console.log('sono data', data);
     const response = await api.post(`${import.meta.env.VITE_REVIEW_URL}`, data);
     return { success: true, data: response.data };
   } catch (error) {
@@ -23,6 +22,18 @@ export async function getReviews(idMeal) {
     return {
       success: false,
       error: error.response?.data?.message || 'Errore caricamento recensioni',
+    };
+  }
+}
+
+export async function deleteReview(id) {
+  try {
+    const response = await api.delete(`${import.meta.env.VITE_REVIEW_URL}/${id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.response?.data?.message || 'Errore eliminazione recensione',
     };
   }
 }

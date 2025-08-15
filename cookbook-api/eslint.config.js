@@ -1,22 +1,24 @@
-// eslint.config.js
+import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginNode from 'eslint-plugin-node';
+import eslintPluginPromise from 'eslint-plugin-promise';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+
 export default [
   {
-    files: ["**/*.js"],
+    files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: "module",
+      sourceType: 'module',
     },
     plugins: {
-      import: require("eslint-plugin-import"),
-      node: require("eslint-plugin-node"),
-      promise: require("eslint-plugin-promise"),
+      import: eslintPluginImport,
+      node: eslintPluginNode,
+      promise: eslintPluginPromise,
+      prettier: eslintPluginPrettier,
     },
-    extends: [
-      require("eslint-config-standard"),
-      require("eslint-config-prettier"),
-    ],
     rules: {
-      "no-console": "off",
+      'no-console': 'off',
+      'prettier/prettier': 'error',
     },
   },
 ];

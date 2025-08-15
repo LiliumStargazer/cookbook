@@ -1,8 +1,10 @@
 import { Card, CardContent } from '@/components/ui/card.jsx';
-import { Star } from 'lucide-react';
+import { Star, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button.jsx';
 
-export default function ReviewCard({ review }) {
-  console.log(review);
+export default function ReviewCard({ review, userId, onClickDelete }) {
+  console.log('ReviewCard USERID', userId);
+  console.log('_id', review._id);
   return (
     <Card className='border p-3'>
       <CardContent className='flex flex-col gap-2'>
@@ -27,6 +29,14 @@ export default function ReviewCard({ review }) {
           <span className='text-xs text-gray-400 ml-auto'>
             {new Date(review.createdAt).toLocaleDateString()}
           </span>
+
+          {userId === review.userId ? (
+            <Button variant='ghost' onClick={() => onClickDelete(review._id)} className='ml-2 p-1'>
+              <Trash2 className='w-3 h-3 mr-1' />{' '}
+            </Button>
+          ) : (
+            ''
+          )}
         </div>
         <p className='text-sm text-gray-700'>{review.comment}</p>
       </CardContent>
