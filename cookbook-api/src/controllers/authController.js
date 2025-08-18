@@ -9,24 +9,23 @@ const validateUserUpdate = require('../utils/validateUserUpdate');
 exports.register = async (req, res) => {
   const error = validateUserData(req.body);
   if (error) {
-
     return res.status(400).send(error);
   }
   try {
     const { username, password, email, favoriteDishes } = req.body;
-    
+
     // Verifica se username già esiste
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
       return res.status(400).send('Username già in uso');
     }
-    
+
     // Verifica se email già esiste
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
       return res.status(400).send('Email già in uso');
     }
-    
+
     const hashed = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashed, email, favoriteDishes });
     await user.save();
@@ -48,18 +47,18 @@ exports.login = async (req, res) => {
       return res.status(401).send('Credenziali non valide');
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-    
+
     // Restituisci user senza password
     const userWithoutPassword = {
       _id: user._id,
       username: user.username,
       email: user.email,
-      favoriteDishes: user.favoriteDishes
+      favoriteDishes: user.favoriteDishes,
     };
-    
-    res.json({ 
-      token, 
-      userData: userWithoutPassword
+
+    res.json({
+      token,
+      userData: userWithoutPassword,
     });
   } catch (err) {
     console.error('Errore in login:', err);
@@ -68,9 +67,9 @@ exports.login = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-    if (!req.userId) {
-        return res.status(401).send('Utente non autenticato');
-    }
+  if (!req.userId) {
+    return res.status(401).send('Utente non autenticato');
+  }
   const error = validateUserUpdate(req.body);
   if (error) {
     return res.status(400).send(error);
@@ -88,9 +87,9 @@ exports.updateUser = async (req, res) => {
 // il middeware auth.js estrae il token prima di chiamare questa funzione e riconosce l'utente.
 exports.deleteUser = async (req, res) => {
   if (!req.userId) {
-    return res.status(401).json({ 
-      success: false, 
-      error: 'Utente non autenticato' 
+    return res.status(401).json({
+      success: false,
+      error: 'Utente non autenticato',
     });
   }
 
@@ -98,10 +97,10 @@ exports.deleteUser = async (req, res) => {
     // Verifica che l'utente esista prima di eliminarlo
     const user = await User.findById(req.userId);
     if (!user) {
-        console.error('Utente non trovato:', req.userId);
-      return res.status(404).json({ 
-        success: false, 
-        error: 'Utente non trovato' 
+      console.error('Utente non trovato:', req.userId);
+      return res.status(404).json({
+        success: false,
+        error: 'Utente non trovato',
       });
     }
 
@@ -109,19 +108,29 @@ exports.deleteUser = async (req, res) => {
     await Promise.all([
       User.findByIdAndDelete(req.userId),
       Recipe.deleteMany({ userId: req.userId }),
-      Review.deleteMany({ userId: req.userId })
+      Review.deleteMany({ userId: req.userId }),
     ]);
 
-    res.json({ 
-      success: true, 
-      message: 'Account eliminato con successo' 
+    res.json({
+      success: true,
+      message: 'Account eliminato con successo',
     });
-
   } catch (error) {
     console.error('Errore durante eliminazione account:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: 'Errore del server durante l\'eliminazione' 
+    res.status(500).json({
+      success: false,
+      error: "Errore del server durante l'eliminazione",
     });
+  }
+};
+
+exports.countUsers = async (req, res) => {
+  if (!req.userId) return res.status(401).send('Utente non autenticato');
+  try {
+    const count = await User.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    console.error('Errore nel conteggio utenti:', err);
+    res.status(500).send('Errore del server');
   }
 };

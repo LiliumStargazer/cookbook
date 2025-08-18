@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { lookupMealById } from '@/features/search/services/api-mealdb.js';
 import { toast } from 'sonner';
+import { lookupMealById } from '@/shared/services/lookup-meal-by-id.js';
 
 export function useMealDetail(idMeal) {
   const [meal, setMeal] = useState(null);

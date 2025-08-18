@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
   searchMealByName,
-  getRandomMeal,
   getMealCategories,
   filterMealByCategory,
   filterMealByArea,
@@ -9,6 +8,7 @@ import {
   filterMealByIngredient,
 } from '@/features/search/services/api-mealdb.js';
 import { toast } from 'sonner';
+import { getRandomMeal } from '@/shared/services/get-random-meal.js';
 
 export function useSearch() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -73,7 +73,6 @@ export function useSearch() {
     setLoading(true);
     try {
       const result = await searchMealByName(searchQuery);
-      console.log(result);
       if (result.success) {
         setMeals(result.data.meals || []);
         if (!result.data.meals || result.data.meals.length === 0) {

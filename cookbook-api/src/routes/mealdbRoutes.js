@@ -101,4 +101,20 @@ router.get('/filter-by-area', async (req, res) => {
   }
 });
 
+router.get('/count', async (req, res) => {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  let total = 0;
+
+  try {
+    for (const letter of alphabet) {
+      const response = await axios.get(`${BASE_URL}/search.php?f=${letter}`);
+      const meals = response.data.meals;
+      if (meals) total += meals.length;
+    }
+    res.json({ count: total });
+  } catch (err) {
+    res.status(500).send('Errore nel conteggio delle ricette');
+  }
+});
+
 module.exports = router;

@@ -5,11 +5,11 @@ import RequireGuest from './require-guest.jsx';
 import SignInPage from '../features/auth/pages/sign-in-page.jsx';
 import UnauthorizedPage from '../shared/pages/unauthorized-page.jsx';
 import SignUpPage from '../features/auth/pages/sign-up-page.jsx';
-import Dashboard from '../features/dashboard/pages/dashboard.tsx.jsx';
 import ProfilePage from '@/features/profile/pages/profile.jsx';
 import SearchPage from '@/features/search/pages/search-page.jsx';
 import RecipeDetailPage from '@/features/recipe/pages/recipe-detail-page.jsx';
 import CookbookPage from '@/features/cookbook/pages/cookbook-page.jsx';
+import Home from '@/features/dashboard/pages/home.jsx';
 
 export default function AppRoutes() {
   return (
@@ -39,7 +39,7 @@ export default function AppRoutes() {
           path='/'
           element={
             <RequireAuth>
-              <Dashboard />
+              <Home />
             </RequireAuth>
           }
         />

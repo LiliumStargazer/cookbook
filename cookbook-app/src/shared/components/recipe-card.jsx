@@ -3,13 +3,31 @@ import { Button } from '@/components/ui/button.jsx';
 import { Badge } from '@/components/ui/badge.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export default function RecipeCard({ meal, children, isInCookbook }) {
+export default function RecipeCard({ meal, children, isInCookbook, loading }) {
   const navigate = useNavigate();
 
   const handleViewRecipe = () => {
     navigate(`/meal/${meal.idMeal}`);
   };
+
+  if (loading || !meal) {
+    return (
+      <Card className='hover:shadow-lg transition-shadow'>
+        <Skeleton className='aspect-video w-full rounded-t-lg' />
+        <CardHeader>
+          <Skeleton className='h-6 w-32' />
+        </CardHeader>
+        <CardContent>
+          <Skeleton className='h-4 w-48' />
+        </CardContent>
+        <CardFooter className='p-4 pt-0'>
+          <Skeleton className='h-10 w-full' />
+        </CardFooter>
+      </Card>
+    );
+  }
 
   return (
     <Card className='hover:shadow-lg transition-shadow'>
