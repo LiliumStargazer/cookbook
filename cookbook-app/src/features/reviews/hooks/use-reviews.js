@@ -23,7 +23,9 @@ export default function useReviews(idMeal) {
   }, [idMeal]);
 
   useEffect(() => {
-    fetchReviews();
+    fetchReviews().catch(error => {
+      console.error(error);
+    });
   }, [fetchReviews]);
 
   return { reviews, loading, refetch: fetchReviews };
