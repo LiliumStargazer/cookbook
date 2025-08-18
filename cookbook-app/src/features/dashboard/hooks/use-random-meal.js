@@ -16,7 +16,7 @@ export function useRandomMeal() {
         toast.error(response.error);
       }
     } catch (error) {
-      toast.error(error || 'Errore durante il recupero del conteggio utenti');
+      toast.error(error.message || 'Errore durante il recupero del conteggio utenti');
     } finally {
       setLoading(false);
     }

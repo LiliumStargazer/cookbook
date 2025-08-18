@@ -13,7 +13,7 @@ export default function useReviews(idMeal) {
       if (response.success) {
         setReviews(response.data);
       } else {
-        toast.error(response.message || 'Errore nel caricamento delle recensioni');
+        toast.error(response.error || 'Errore nel caricamento delle recensioni');
       }
     } catch (err) {
       toast.error(err.message || 'Errore nel caricamento delle recensioni');

@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { addReview } from '@/features/reviews/services/api-reviews.js';
 import { toast } from 'sonner';
 
 export default function useAddReview(idMeal) {
   const [loading, setLoading] = useState(false);
 
-  const submitReview = async ({ comment, rating, difficulty, preparationDate }) => {
-    try {
-      setLoading(true);
-      const response = await addReview({ idMeal, rating, preparationDate, difficulty, comment });
-      console.log(response);
-      if (!response.success) toast.error(response.message || "Errore nell'invio della recensione");
-    } catch (err) {
-      toast.error(err.message || "Errore nell'invio della recensione");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const submitReview = useCallback(
+    async ({ comment, rating, difficulty, preparationDate }) => {
+      try {
+        setLoading(true);
+        const response = await addReview({ idMeal, rating, preparationDate, difficulty, comment });
+        console.log(response);
+        if (!response.success) toast.error(response.error || "Errore nell'invio della recensione");
+      } catch (err) {
+        toast.error(err.message || "Errore nell'invio della recensione");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [idMeal],
+  );
 
   return { submitReview, loading };
 }

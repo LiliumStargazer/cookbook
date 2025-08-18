@@ -6,7 +6,7 @@ export async function getUserRecipes() {
     const response = await api.get(`${import.meta.env.VITE_RECIPE_URL}`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore caricamento ricette' };
+    return { success: false, error: error.response?.data?.error || 'Errore caricamento ricette' };
   }
 }
 
@@ -20,7 +20,7 @@ export async function updateRecipeNote(recipeId, note) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data || "Errore nell'aggiornamento della nota",
+      error: error.response?.data?.error || "Errore nell'aggiornamento della nota",
     };
   }
 }
@@ -31,6 +31,9 @@ export async function removeRecipeNote(recipeId) {
     const response = await api.delete(`${import.meta.env.VITE_RECIPE_URL}/${recipeId}/note`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore nella rimozione della nota' };
+    return {
+      success: false,
+      error: error.response?.data?.error || 'Errore nella rimozione della nota',
+    };
   }
 }

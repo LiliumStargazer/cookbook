@@ -6,7 +6,7 @@ exports.createRecipe = async (req, res) => {
     // Verifica se la ricetta esiste già per l'utente
     const existing = await Recipe.findOne({ strMeal: req.body.strMeal, userId: req.userId });
     if (existing) {
-      return res.status(409).send('Ricetta già presente');
+      return res.status(409).json({ error: 'Conflict', message: 'Ricetta già presente' });
     }
 
     // Costruisci gli array ingredienti/misure se arrivano come campi separati
@@ -28,8 +28,13 @@ exports.createRecipe = async (req, res) => {
     await recipe.save();
     res.status(201).json(recipe);
   } catch (err) {
-    console.log('Errore dettagliato:', err);
-    res.status(500).send('Errore nella creazione della ricetta');
+    console.error('Errore in login:', err);
+    res
+      .status(500)
+      .json({
+        error: 'InernalServerError',
+        message: 'Errore del server nella creazione della ricetta',
+      });
   }
 };
 
@@ -37,8 +42,12 @@ exports.getUserRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find({ userId: req.userId });
     res.json(recipes);
-  } catch {
-    res.status(500).send('Errore nel recupero delle ricette');
+  } catch (err) {
+    console.error('Errore in getting user recipes', err.message);
+    res.status(500).json({
+      error: 'InernalServerError',
+      message: 'Errore del server nel recupero delle ricette',
+    });
   }
 };
 
@@ -48,10 +57,13 @@ exports.deleteRecipe = async (req, res) => {
       idMeal: req.params.id,
       userId: req.userId,
     });
-    if (!recipe) return res.status(404).send('Ricetta non trovata');
-    res.send('Ricetta eliminata');
+    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Ricetta non trovata' });
+    return res.status(204).end();
   } catch (err) {
-    res.status(500).send('Errore nella cancellazione');
+    console.error('Errore in deleteRecipe', err);
+    res
+      .status(500)
+      .json({ error: 'InernalServerError', message: 'Errore del server in nella cancellazione' });
   }
 };
 
@@ -61,19 +73,27 @@ exports.updateRecipeNote = async (req, res) => {
     let { note } = req.body;
 
     if (typeof note !== 'string')
-      return res.status(400).json({ error: 'Campo note mancante o non valido' });
+      return res
+        .status(400)
+        .json({ error: 'BadRequest', message: 'Campo note mancante o non valido' });
 
-    note = note.trim(); // verrà comunque ritagliata anche da Mongoose
+    note = note.trim(); // viene comunque ritagliata anche da Mongoose
 
     const recipe = await Recipe.findOne({ _id: id, userId: req.userId });
-    if (!recipe) return res.status(404).json({ error: 'Ricetta non trovata' });
+    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Ricetta non trovata' });
     recipe.note = note;
     await recipe.save();
-
-    res.json({ idMeal: recipe._id, note: recipe.note });
+    res.status(200).json({
+      data: {
+        idMeal: recipe._id,
+        note: recipe.note,
+      },
+    });
   } catch (err) {
-    console.error('Errore update nota:', err);
-    res.status(500).json({ error: 'Errore aggiornamento nota' });
+    console.error('Errore in updateRecipeNote', err);
+    res
+      .status(500)
+      .json({ error: 'InernalServerError', message: 'Errore del server in aggiornamento nota' });
   }
 };
 
@@ -81,7 +101,7 @@ exports.deleteRecipeNote = async (req, res) => {
   try {
     const { id } = req.params; // idMeal
     const recipe = await Recipe.findOne({ _id: id, userId: req.userId });
-    if (!recipe) return res.status(404).json({ error: 'Ricetta non trovata' });
+    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Ricetta non trovata' });
 
     if (!recipe.note) return res.status(204).end(); // già vuota
 
@@ -90,6 +110,8 @@ exports.deleteRecipeNote = async (req, res) => {
     return res.status(204).end(); // nessun contenuto
   } catch (err) {
     console.error('Errore delete nota:', err);
-    res.status(500).json({ error: 'Errore cancellazione nota' });
+    res
+      .status(500)
+      .json({ error: 'InernalServerError', message: 'Errore del server in cancellazione nota' });
   }
 };

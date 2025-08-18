@@ -3,7 +3,11 @@ const User = require('../models/User');
 
 // Crea una recensione
 exports.createReview = async (req, res) => {
-  if (!req.userId) return res.status(401).send('Utente non autenticato');
+  if (!req.userId)
+    return res.status(401).json({
+      error: 'Unauthorized',
+      message: 'Utente non autorizzato',
+    });
   const user = await User.findById(req.userId);
   const username = user.username;
 
@@ -21,7 +25,10 @@ exports.createReview = async (req, res) => {
     res.status(201).json(review);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Errore nella creazione della recensione');
+    res.status(500).json({
+      error: 'InernalServerError',
+      message: 'Errore nella creazione della recensione',
+    });
   }
 };
 
@@ -32,31 +39,52 @@ exports.getReviewsByMeal = async (req, res) => {
     res.json(reviews);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Errore nel recupero delle recensioni');
+    res.status(500).json({
+      error: 'InernalServerError',
+      message: 'Errore nel recupero delle recensioni per la ricetta',
+    });
   }
 };
 
 // Cancella una recensione
 exports.deleteReview = async (req, res) => {
-  if (!req.userId) return res.status(401).send('Utente non autenticato');
+  if (!req.userId)
+    return res.status(401).json({
+      error: 'Unauthorized',
+      message: 'Utente non autorizzato',
+    });
   try {
     const result = await Review.deleteOne({ _id: req.params.id, userId: req.userId });
-    if (result.deletedCount === 0) return res.status(404).send('Recensione non trovata');
+    if (result.deletedCount === 0)
+      return res.status(404).json({
+        error: 'NotFound',
+        message: 'Recensione non trovata',
+      });
     res.status(204).send();
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Errore nella cancellazione della recensione');
+    console.error('Errore nella cancellazione', err);
+    res.status(500).json({
+      error: 'InernalServerError',
+      message: 'Errore nella cancellazione della recensione',
+    });
   }
 };
 
 exports.countReviews = async (req, res) => {
-  if (!req.userId) return res.status(401).send('Utente non autenticato');
+  if (!req.userId)
+    return res.status(401).json({
+      error: 'Unauthorized',
+      message: 'Utente non autorizzato',
+    });
   try {
     let count = await Review.countDocuments();
     res.json({ count });
   } catch (error) {
     console.error('count reviews error', error);
-    res.status(500).send('Errore del server');
+    res.status(500).json({
+      error: 'InernalServerError',
+      message: 'Errore nel conteggio delle recensioni',
+    });
   }
 };
 
@@ -74,10 +102,17 @@ exports.getTopRatedMeal = async (req, res) => {
       { $sort: { avgRating: -1, count: -1 } },
       { $limit: 1 },
     ]);
-    if (result.length === 0) return res.status(404).send('Nessuna recensione trovata');
+    if (result.length === 0)
+      return res.status(404).json({
+        error: 'NotFound',
+        message: 'Nessuna recensione trovata',
+      });
     res.json(result[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Errore nel recupero del top rated meal');
+    res.status(500).json({
+      error: 'InernalServerError',
+      message: 'Errore nel recupero del top rated meal',
+    });
   }
 };

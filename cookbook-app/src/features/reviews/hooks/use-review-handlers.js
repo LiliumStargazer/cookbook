@@ -21,8 +21,8 @@ export default function useReviewHandlers({ submitReview, refetch }) {
         } else {
           toast.error(result.error || "Errore durante l'eliminazione della recensione");
         }
-      } catch (err) {
-        console.error('Error deleting review:', err);
+      } catch (error) {
+        console.error(error.message);
       }
     },
     [refetch],
