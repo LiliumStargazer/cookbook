@@ -11,20 +11,20 @@ export function useToggleCookbook(meal) {
   const toggleCookbook = useCallback(async () => {
     try {
       setLoading(true);
-      let result;
+      let response;
       if (isInUserCookbook) {
-        result = await removeFromCookbook(meal.idMeal);
+        response = await removeFromCookbook(meal.idMeal);
       } else {
-        result = await addToCookBook(meal);
+        response = await addToCookBook(meal);
       }
 
-      if (result.success) {
+      if (response.success) {
         await refetch();
         toast.success(
           isInUserCookbook ? 'Ricetta rimossa dal ricettario' : 'Ricetta aggiunta al ricettario',
         );
       } else {
-        toast.error(result.error);
+        toast.error(response.error);
       }
     } catch (error) {
       toast.error(error.message || 'Errore nella gestione della ricetta');

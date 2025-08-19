@@ -12,13 +12,13 @@ export function useDeleteAccount() {
   const handleDeleteAccount = async () => {
     setLoading(true);
     try {
-      const result = await deleteUser(userData);
-      if (result.success) {
+      const response = await deleteUser(userData);
+      if (response.success) {
         toast.success('Account eliminato con successo');
         logout();
         navigate('/auth/login');
       } else {
-        toast.error(result.error || "Errore durante l'eliminazione dell'account");
+        toast.error(response.error || "Errore durante l'eliminazione dell'account");
       }
     } catch (error) {
       toast.error(error.message);

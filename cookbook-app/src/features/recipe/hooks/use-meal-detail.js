@@ -13,12 +13,12 @@ export function useMealDetail(idMeal) {
     }
     setLoading(true);
     try {
-      const result = await lookupMealById(idMeal);
+      const response = await lookupMealById(idMeal);
 
-      if (result.success && result.data.meals && result.data.meals[0]) {
-        setMeal(result.data.meals[0]);
+      if (response.success && response.data.meals && response.data.meals[0]) {
+        setMeal(response.data.meals[0]);
       } else {
-        toast.error(result.message || 'Ricetta non trovata');
+        toast.error(response.message || 'Ricetta non trovata');
       }
     } catch (error) {
       toast.error(error.message || 'Errore nel caricamento della ricetta');

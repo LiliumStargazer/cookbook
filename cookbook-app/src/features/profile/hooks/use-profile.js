@@ -52,13 +52,13 @@ export function useProfile() {
       if (password && !password.includes('*') && password.trim() !== '')
         updateData.password = password;
 
-      const result = await updateUser(updateData);
+      const response = await updateUser(updateData);
 
-      if (result.success) {
+      if (response.success) {
         toast.success('Aggiornamento avvenuto con successo!');
         setPassword('*****'); // Resetta la password dopo l'aggiornamento
       } else {
-        toast.error(result.error || "Errore durante l'aggiornamento");
+        toast.error(response.error || "Errore durante l'aggiornamento");
       }
     } catch (error) {
       // Errori di rete, timeout, server non raggiungibile, ecc.

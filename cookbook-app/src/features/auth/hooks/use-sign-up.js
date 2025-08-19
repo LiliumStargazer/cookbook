@@ -23,16 +23,21 @@ export default function useSignUp() {
         .split(',')
         .map(d => d.trim())
         .filter(d => d.length > 0);
-      const result = await registerUser({ username, email, password, favoriteDishes: dishesArray });
+      const response = await registerUser({
+        username,
+        email,
+        password,
+        favoriteDishes: dishesArray,
+      });
       setLoading(false);
-      if (result.success) {
+      if (response.success) {
         toast.success('Registrazione avvenuta con successo!Ti reindirizzo alla pagina di login');
         setTimeout(() => {
           navigate('/signin');
           window.location.reload();
         }, 2500);
       } else {
-        toast.error(result.error);
+        toast.error(response.error);
       }
     } catch (error) {
       toast.error(error.message);

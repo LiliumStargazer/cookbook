@@ -14,12 +14,12 @@ export default function useReviewHandlers({ submitReview, refetch }) {
   const handleDeleteReview = useCallback(
     async id => {
       try {
-        const result = await deleteReview(id);
-        if (result.success) {
+        const response = await deleteReview(id);
+        if (response.success) {
           toast.success('recensione eliminata con successo');
           refetch();
         } else {
-          toast.error(result.error || "Errore durante l'eliminazione della recensione");
+          toast.error(response.error || "Errore durante l'eliminazione della recensione");
         }
       } catch (error) {
         console.error(error.message);

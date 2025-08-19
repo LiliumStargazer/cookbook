@@ -15,11 +15,11 @@ export default function useSignIn() {
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      const result = await loginUser({ email, password });
-      if (result.success) {
+      const response = await loginUser({ email, password });
+      if (response.success) {
         navigate('/');
       } else {
-        toast.error(result.error);
+        toast.error(response.error);
       }
     } catch (error) {
       toast.error(error.message);
