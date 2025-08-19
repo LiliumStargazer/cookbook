@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '@/utils/cn.js';
-import badgeVariants from '@/utils/badge-variants.js';
+import { badgeVariants } from '@/utils/badge-variants.js';
 
 function Badge({ className, variant, asChild = false, ...props }) {
   const Comp = asChild ? Slot : 'span';

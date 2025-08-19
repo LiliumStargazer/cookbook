@@ -2,7 +2,7 @@ import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { ChevronDownIcon } from 'lucide-react';
 
 import { cn } from '@/utils/cn.js';
-import navigationMenuTriggerStyle from '@/utils/navigation-menu-trigger-style.js';
+import { navigationMenuTriggerStyle } from '@/utils/navigation-menu-trigger-style.js';
 
 function NavigationMenu({ className, children, viewport = true, ...props }) {
   return (
