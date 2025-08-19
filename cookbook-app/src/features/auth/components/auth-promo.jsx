@@ -2,13 +2,12 @@ export default function AuthPromo() {
   return (
     <div style={{ maxWidth: 1000, padding: '48px 32px 48px 64px' }}>
       <h1 style={{ fontWeight: 700, fontSize: '2.5rem', marginBottom: 32, color: '#fff' }}>
-        Crea il tuo account CookBook
+        Create your CookBook account
       </h1>
       <p style={{ fontSize: '1.3rem', color: '#fff', lineHeight: 1.6, marginBottom: 0 }}>
-        Unisciti alla community di appassionati di cucina!
+        Join the community of cooking enthusiasts!
         <br />
-        Condividi le tue ricette preferite, salva i tuoi piatti del cuore e scopri nuovi sapori ogni
-        giorno.
+        Share your favorite recipes, save your beloved dishes, and discover new flavors every day.
       </p>
     </div>
   );

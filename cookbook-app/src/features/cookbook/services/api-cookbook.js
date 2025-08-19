@@ -1,16 +1,16 @@
 import api from '../../../lib/axios.js';
 
-// Ottieni tutte le ricette dell'utente
+// Get all user recipes
 export async function getUserRecipes() {
   try {
     const response = await api.get(`${import.meta.env.VITE_RECIPE_URL}`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data?.error || 'Errore caricamento ricette' };
+    return { success: false, error: error.response?.data?.error || 'Error loading recipes' };
   }
 }
 
-// Aggiungi o aggiorna una nota per una ricetta
+// Add or update a note for a recipe
 export async function updateRecipeNote(recipeId, note) {
   try {
     const response = await api.patch(`${import.meta.env.VITE_RECIPE_URL}/${recipeId}/note`, {
@@ -20,12 +20,12 @@ export async function updateRecipeNote(recipeId, note) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.error || "Errore nell'aggiornamento della nota",
+      error: error.response?.data?.error || 'Error updating note',
     };
   }
 }
 
-// Rimuovi una nota da una ricetta
+// Remove a note from a recipe
 export async function removeRecipeNote(recipeId) {
   try {
     const response = await api.delete(`${import.meta.env.VITE_RECIPE_URL}/${recipeId}/note`);
@@ -33,7 +33,7 @@ export async function removeRecipeNote(recipeId) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.error || 'Errore nella rimozione della nota',
+      error: error.response?.data?.error || 'Error removing note',
     };
   }
 }

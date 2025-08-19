@@ -21,13 +21,13 @@ export function useToggleCookbook(meal) {
       if (response.success) {
         await refetch();
         toast.success(
-          isInUserCookbook ? 'Ricetta rimossa dal ricettario' : 'Ricetta aggiunta al ricettario',
+          isInUserCookbook ? 'Recipe removed from cookbook' : 'Recipe added to cookbook',
         );
       } else {
         toast.error(response.error);
       }
     } catch (error) {
-      toast.error(error.message || 'Errore nella gestione della ricetta');
+      toast.error(error.message || 'Error managing recipe');
     } finally {
       setLoading(false);
     }

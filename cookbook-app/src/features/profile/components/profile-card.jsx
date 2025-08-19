@@ -22,8 +22,8 @@ export default function ProfileCard({ username, onAvatarClick, children }) {
             </AvatarFallback>
           </Avatar>
         </div>
-        <CardTitle className='text-2xl'>Il mio Profilo</CardTitle>
-        <CardDescription>Gestisci le informazioni del tuo account</CardDescription>
+        <CardTitle className='text-2xl'>My Profile</CardTitle>
+        <CardDescription>Manage your account information</CardDescription>
       </CardHeader>
       <CardContent className='space-y-6 relative'>{children}</CardContent>
     </Card>

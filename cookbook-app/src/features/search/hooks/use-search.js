@@ -17,14 +17,14 @@ export function useSearch() {
   const [categories, setCategories] = useState([]);
   const [areas, setAreas] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  // Stati per i filtri selezionati
+  // States for selected filters
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedArea, setSelectedArea] = useState('');
   const [selectedIngredient, setSelectedIngredient] = useState('');
-  // Stato per mostrare/nascondere i filtri
+  // State to show/hide filters
   const [showFilters, setShowFilters] = useState(false);
 
-  // Carica categorie e aree all'avvio
+  // Load categories and areas on mount
   useEffect(() => {
     loadInitialData();
   }, []);
@@ -33,40 +33,40 @@ export function useSearch() {
     try {
       const [categoriesResult, areasResult, ingredientResult] = await Promise.all([
         getMealCategories(),
-        getMealList('a'), // 'a' per aree
-        getMealList('i'), // 'i' per ingredienti
+        getMealList('a'), // 'a' for areas
+        getMealList('i'), // 'i' for ingredients
       ]);
 
       if (categoriesResult.success) {
         const categoriesWithAll = [
-          { strCategory: 'None' }, // Opzione vuota per "Tutte le categorie"
+          { strCategory: 'None' }, // Empty option for "All categories"
           ...(categoriesResult.data.categories || []),
         ];
         setCategories(categoriesWithAll);
       }
       if (areasResult.success) {
         const areasWithAll = [
-          { strArea: 'None' }, // Opzione vuota per "Tutte le aree"
+          { strArea: 'None' }, // Empty option for "All areas"
           ...(areasResult.data.meals || []),
         ];
         setAreas(areasWithAll);
       }
       if (ingredientResult.success) {
         const ingredientResultWithAll = [
-          { strIngredient: 'None' }, // Opzione vuota per "Tutte le aree"
+          { strIngredient: 'None' }, // Empty option for "All ingredients"
           ...(ingredientResult.data.meals || []),
         ];
         setIngredients(ingredientResultWithAll);
       }
     } catch (error) {
-      toast.error('Errore durante il caricamento dei dati iniziali');
-      console.error('Errore caricamento dati iniziali:', error);
+      toast.error('Error loading initial data');
+      console.error('Error loading initial data:', error);
     }
   };
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
-      toast.error('Inserisci una parola chiave per la ricerca');
+      toast.error('Enter a keyword to search');
       return;
     }
 
@@ -76,14 +76,14 @@ export function useSearch() {
       if (result.success) {
         setMeals(result.data.meals || []);
         if (!result.data.meals || result.data.meals.length === 0) {
-          toast.info('Nessuna ricetta trovata');
+          toast.info('No recipes found');
         }
       } else {
         toast.error(result.error);
         setMeals([]);
       }
     } catch (error) {
-      toast.error('Errore durante la ricerca', error);
+      toast.error('Error during search', error);
       setMeals([]);
     } finally {
       setLoading(false);
@@ -100,7 +100,7 @@ export function useSearch() {
         toast.error(result.error);
       }
     } catch (error) {
-      toast.error('Errore durante il caricamento della ricetta casuale', error);
+      toast.error('Error loading random recipe', error);
     } finally {
       setLoading(false);
     }
@@ -119,7 +119,7 @@ export function useSearch() {
         toast.error(result.error);
       }
     } catch (error) {
-      toast.error('Errore durante il filtro per categoria', error);
+      toast.error('Error filtering by category', error);
     } finally {
       setLoading(false);
     }
@@ -128,7 +128,7 @@ export function useSearch() {
   const handleAreaFilter = async area => {
     setSelectedArea(area);
     if (!area) return;
-    // Se l'area è "None", non applicare il filtro
+    // If area is "None", do not apply filter
     if (area === 'None') {
       setMeals([]);
       return;
@@ -142,7 +142,7 @@ export function useSearch() {
         toast.error(result.error);
       }
     } catch (error) {
-      toast.error('Errore durante il filtro per area', error);
+      toast.error('Error filtering by area', error);
     } finally {
       setLoading(false);
     }
@@ -151,7 +151,7 @@ export function useSearch() {
   const handleIngredientFilter = async ingredient => {
     setSelectedIngredient(ingredient);
     if (!ingredient) return;
-    // Se l'ingrediente è "None", non applicare il filtro
+    // If ingredient is "None", do not apply filter
     if (ingredient === 'None') {
       setMeals([]);
       return;
@@ -165,7 +165,7 @@ export function useSearch() {
         toast.error(result.error);
       }
     } catch (error) {
-      toast.error('Errore durante il filtro per ingrediente', error);
+      toast.error('Error filtering by ingredient', error);
     } finally {
       setLoading(false);
     }
@@ -189,7 +189,6 @@ export function useSearch() {
     loading,
     categories,
     areas,
-
     ingredients,
     selectedCategory,
     selectedArea,

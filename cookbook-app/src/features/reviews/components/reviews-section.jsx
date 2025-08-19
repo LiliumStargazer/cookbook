@@ -15,11 +15,11 @@ export default function ReviewsSection({ idMeal }) {
   return (
     <Card className='mt-8'>
       <CardHeader>
-        <CardTitle>Recensioni</CardTitle>
+        <CardTitle>Reviews</CardTitle>
       </CardHeader>
       <CardContent>
         {loading ? (
-          <p className='text-muted-foreground'>Caricamento recensioni...</p>
+          <p className='text-muted-foreground'>Loading reviews...</p>
         ) : (
           <ReviewList reviews={reviews} userId={userData._id} onClickDelete={handleDeleteReview} />
         )}

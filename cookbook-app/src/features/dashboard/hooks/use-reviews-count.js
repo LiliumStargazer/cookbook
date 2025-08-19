@@ -19,7 +19,7 @@ export function useReviewsCount() {
       }
     } catch (error) {
       setError(true);
-      toast.error(error || 'Errore durante il recupero del conteggio recensioni');
+      toast.error(error || 'Error retrieving reviews count');
     } finally {
       setLoading(false);
     }

@@ -6,13 +6,13 @@ const jwt = require('jsonwebtoken');
 //next serve per passare il controllo al middleware successivo nella catena oppure alla route finale.
 module.exports = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).send('Token mancante');
+  if (!authHeader) return res.status(401).send('Missing token');
   const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
     next();
   } catch {
-    res.status(401).send('Token non valido');
+    res.status(401).send('Invalid token');
   }
 };

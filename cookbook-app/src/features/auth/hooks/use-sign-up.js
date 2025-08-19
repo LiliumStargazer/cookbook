@@ -31,7 +31,7 @@ export default function useSignUp() {
       });
       setLoading(false);
       if (response.success) {
-        toast.success('Registrazione avvenuta con successo!Ti reindirizzo alla pagina di login');
+        toast.success('Registration successful! Redirecting you to the login page');
         setTimeout(() => {
           navigate('/signin');
           window.location.reload();

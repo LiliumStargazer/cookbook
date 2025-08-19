@@ -9,7 +9,7 @@ export function useCookbook() {
   const [userRecipes, setUserRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Carica le ricette dell'utente (callback per coerenza)
+  // Load user recipes (callback for consistency)
   const fetchUserRecipes = useCallback(async () => {
     try {
       setLoading(true);
@@ -20,7 +20,7 @@ export function useCookbook() {
         toast.error(response.error);
       }
     } catch (err) {
-      toast.error(err.message || 'Errore nel caricamento delle ricette');
+      toast.error(err.message || 'Error loading recipes');
     } finally {
       setLoading(false);
     }
@@ -32,7 +32,7 @@ export function useCookbook() {
 
   useEffect(() => {
     fetchUserRecipes().catch(error => {
-      toast.error(error.message || 'Errore nel caricamento delle ricette');
+      toast.error(error.message || 'Error loading recipes');
     });
   }, [fetchUserRecipes]);
 

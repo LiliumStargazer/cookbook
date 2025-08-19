@@ -23,7 +23,7 @@ export function useTopRatedMeals() {
         toast.error(response.error);
       }
     } catch (error) {
-      toast.error(error || 'Errore durante il recupero del conteggio utenti');
+      toast.error(error || 'Error retrieving user count');
     } finally {
       setLoading(false);
     }

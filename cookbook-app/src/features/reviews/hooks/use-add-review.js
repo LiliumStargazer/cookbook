@@ -10,9 +10,9 @@ export default function useAddReview(idMeal) {
       try {
         setLoading(true);
         const response = await addReview({ idMeal, rating, preparationDate, difficulty, comment });
-        if (!response.success) toast.error(response.error || "Errore nell'invio della recensione");
+        if (!response.success) toast.error(response.error || 'Error submitting review');
       } catch (err) {
-        toast.error(err.message || "Errore nell'invio della recensione");
+        toast.error(err.message || 'Error submitting review');
       } finally {
         setLoading(false);
       }

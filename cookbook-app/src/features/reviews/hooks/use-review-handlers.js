@@ -16,10 +16,10 @@ export default function useReviewHandlers({ submitReview, refetch }) {
       try {
         const response = await deleteReview(id);
         if (response.success) {
-          toast.success('recensione eliminata con successo');
+          toast.success('Review deleted successfully');
           refetch();
         } else {
-          toast.error(response.error || "Errore durante l'eliminazione della recensione");
+          toast.error(response.error || 'Error deleting review');
         }
       } catch (error) {
         console.error(error.message);

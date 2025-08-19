@@ -1,16 +1,16 @@
 import api from '../../../lib/axios.js';
 
-// Crea una nuova ricetta
+// Create a new recipe
 export async function addToCookBook(data) {
   try {
     const response = await api.post(`${import.meta.env.VITE_RECIPE_URL}`, data);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data.message || 'Errore creazione ricetta' };
+    return { success: false, error: error.response?.data.message || 'Error creating recipe' };
   }
 }
 
-// Cancella una ricetta tramite id
+// Delete a recipe by id
 export async function removeFromCookbook(id) {
   try {
     await api.delete(`${import.meta.env.VITE_RECIPE_URL}/${id}`);
@@ -18,7 +18,7 @@ export async function removeFromCookbook(id) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data.message || 'Errore cancellazione ricetta',
+      error: error.response?.data.message || 'Error deleting recipe',
     };
   }
 }

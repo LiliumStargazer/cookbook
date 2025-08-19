@@ -20,7 +20,7 @@ export function useProfile() {
   const handleEmailChange = e => setEmail(e.target.value);
   const handlePasswordChange = e => setPassword(e.target.value);
   const handlePasswordKeyDown = e => {
-    // Se il campo contiene asterischi e l'utente preme Backspace, cancella tutto
+    // If the field contains asterisks and the user presses Backspace, clear everything
     if (e.key === 'Backspace' && password.includes('*')) {
       e.preventDefault();
       setPassword('');
@@ -33,7 +33,7 @@ export function useProfile() {
     setLoading(true);
 
     try {
-      // Crea l'oggetto dati senza la password se è fittizia
+      // Create the data object without the password if it's fake
       const updateData = {
         username,
         email,
@@ -47,21 +47,21 @@ export function useProfile() {
               ? favoriteDishes
               : [],
       };
-      // Considera password valida solo se non contiene asterischi e ha almeno 6 caratteri
-      // Aggiungi la password solo se è stata realmente modificata
+      // Consider password valid only if it does not contain asterisks and has at least 6 characters
+      // Add the password only if it has actually been changed
       if (password && !password.includes('*') && password.trim() !== '')
         updateData.password = password;
 
       const response = await updateUser(updateData);
 
       if (response.success) {
-        toast.success('Aggiornamento avvenuto con successo!');
-        setPassword('*****'); // Resetta la password dopo l'aggiornamento
+        toast.success('Update successful!');
+        setPassword('*****'); // Reset password after update
       } else {
-        toast.error(response.error || "Errore durante l'aggiornamento");
+        toast.error(response.error || 'Error during update');
       }
     } catch (error) {
-      // Errori di rete, timeout, server non raggiungibile, ecc.
+      // Network errors, timeout, server unreachable, etc.
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -70,7 +70,7 @@ export function useProfile() {
   };
 
   const handleCancel = () => {
-    // Ripristina i dati originali
+    // Restore original data
     setUsername(userData?.username);
     setEmail(userData?.email);
     setPassword('*****');

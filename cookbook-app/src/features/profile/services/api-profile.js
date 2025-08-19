@@ -7,7 +7,7 @@ export const updateUser = async userData => {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || "Errore durante l'aggiornamento del profilo",
+      error: error.response?.data?.message || 'Error updating profile',
     };
   }
 };
@@ -19,7 +19,7 @@ export const deleteUser = async () => {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || "Errore durante l'eliminazione dell'account",
+      error: error.response?.data?.message || 'Error deleting account',
     };
   }
 };

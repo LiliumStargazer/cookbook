@@ -1,6 +1,6 @@
 import api from '../../../lib/axios.js';
 
-// Crea una nuova recensione
+// Create a new review
 export async function addReview(data) {
   try {
     const response = await api.post(`${import.meta.env.VITE_REVIEW_URL}`, data);
@@ -8,12 +8,12 @@ export async function addReview(data) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Errore creazione recensione',
+      error: error.response?.data?.message || 'Error creating review',
     };
   }
 }
 
-// Ottieni tutte le recensioni di una ricetta tramite idMeal
+// Get all reviews for a recipe by idMeal
 export async function getReviews(idMeal) {
   try {
     const response = await api.get(`${import.meta.env.VITE_REVIEW_URL}/${idMeal}`);
@@ -21,7 +21,7 @@ export async function getReviews(idMeal) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Errore caricamento recensioni',
+      error: error.response?.data?.message || 'Error loading reviews',
     };
   }
 }
@@ -33,7 +33,7 @@ export async function deleteReview(id) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Errore eliminazione recensione',
+      error: error.response?.data?.message || 'Error deleting review',
     };
   }
 }

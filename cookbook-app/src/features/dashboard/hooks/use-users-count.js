@@ -19,7 +19,7 @@ export function useUsersCount() {
       }
     } catch (error) {
       setError(true);
-      toast.error(error || 'Errore durante il recupero del conteggio utenti');
+      toast.error(error || 'Error retrieving user count');
     } finally {
       setLoading(false);
     }

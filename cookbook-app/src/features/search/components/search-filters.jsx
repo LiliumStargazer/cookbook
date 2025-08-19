@@ -34,11 +34,11 @@ export default function SearchFilters({
     <Card className='mb-6'>
       <CardContent className='p-6'>
         <div className='flex flex-col space-y-4'>
-          {/* Ricerca per parola chiave */}
+          {/* Search by keyword */}
           <div className='flex space-x-2'>
             <div className='flex-1'>
               <Input
-                placeholder='Cerca ricette per nome... (es: pasta, chicken, pizza)'
+                placeholder='Search recipes by name... (e.g. pasta, chicken, pizza)'
                 value={searchQuery}
                 onChange={e => onSearchQueryChange(e.target.value)}
                 onKeyPress={e => e.key === 'Enter' && onSearch()}
@@ -46,36 +46,36 @@ export default function SearchFilters({
             </div>
             <Button variant='destructive' onClick={onSearch} disabled={loading}>
               <SearchIcon className='w-4 h-4 mr-2' />
-              Cerca
+              Search
             </Button>
             <Button variant='outline' onClick={onRandomMeal} disabled={loading}>
               <Shuffle className='w-4 h-4 mr-2' />
-              Casuale
+              Random
             </Button>
           </div>
 
-          {/* Toggle filtri */}
+          {/* Toggle filters */}
           <div className='flex items-center justify-between'>
             <Button variant='ghost' size='sm' onClick={onToggleFilters}>
               <FilterIcon className='w-4 h-4 mr-2' />
-              {showFilters ? 'Nascondi' : 'Mostra'} Filtri
+              {showFilters ? 'Hide' : 'Show'} Filters
             </Button>
 
             {(selectedCategory || selectedArea || selectedIngredient) && (
               <Button variant='ghost' size='sm' onClick={onClearFilters}>
-                Cancella Filtri
+                Clear Filters
               </Button>
             )}
           </div>
 
-          {/* Filtri espandibili */}
+          {/* Expandable filters */}
           {showFilters && (
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t'>
               <div>
-                <label className='text-sm font-medium mb-2 block'>Categoria</label>
+                <label className='text-sm font-medium mb-2 block'>Category</label>
                 <Select value={selectedCategory} onValueChange={onCategoryFilter}>
                   <SelectTrigger>
-                    <SelectValue placeholder='Seleziona categoria' />
+                    <SelectValue placeholder='Select category' />
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map(category => (
@@ -88,10 +88,10 @@ export default function SearchFilters({
               </div>
 
               <div>
-                <label className='text-sm font-medium mb-2 block'>Ingredients</label>
+                <label className='text-sm font-medium mb-2 block'>Ingredient</label>
                 <Select value={selectedIngredient} onValueChange={onIngredientFilter}>
                   <SelectTrigger>
-                    <SelectValue placeholder='Seleziona ingrediente' />
+                    <SelectValue placeholder='Select ingredient' />
                   </SelectTrigger>
                   <SelectContent>
                     {ingredients.map(ingredient => (
@@ -104,10 +104,10 @@ export default function SearchFilters({
               </div>
 
               <div>
-                <label className='text-sm font-medium mb-2 block'>Origine</label>
+                <label className='text-sm font-medium mb-2 block'>Origin</label>
                 <Select value={selectedArea} onValueChange={onAreaFilter}>
                   <SelectTrigger>
-                    <SelectValue placeholder='Seleziona origine' />
+                    <SelectValue placeholder='Select origin' />
                   </SelectTrigger>
                   <SelectContent>
                     {areas.map(area => (
@@ -121,17 +121,17 @@ export default function SearchFilters({
             </div>
           )}
 
-          {/* Filtri attivi */}
+          {/* Active filters */}
           {(selectedCategory || selectedArea || selectedIngredient) && (
             <div className='flex flex-wrap gap-2'>
               {selectedCategory && selectedCategory !== 'None' && selectedCategory !== '' && (
-                <Badge variant='secondary'>Categoria: {selectedCategory}</Badge>
+                <Badge variant='secondary'>Category: {selectedCategory}</Badge>
               )}
               {selectedIngredient && selectedIngredient !== 'None' && selectedIngredient !== '' && (
-                <Badge variant='secondary'>Ingrediente: {selectedIngredient}</Badge>
+                <Badge variant='secondary'>Ingredient: {selectedIngredient}</Badge>
               )}
               {selectedArea && selectedArea !== 'None' && selectedArea !== '' && (
-                <Badge variant='secondary'>Origine: {selectedArea}</Badge>
+                <Badge variant='secondary'>Origin: {selectedArea}</Badge>
               )}
             </div>
           )}

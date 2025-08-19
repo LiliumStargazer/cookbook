@@ -18,10 +18,10 @@ export function useMealDetail(idMeal) {
       if (response.success && response.data.meals && response.data.meals[0]) {
         setMeal(response.data.meals[0]);
       } else {
-        toast.error(response.message || 'Ricetta non trovata');
+        toast.error(response.message || 'Recipe not found');
       }
     } catch (error) {
-      toast.error(error.message || 'Errore nel caricamento della ricetta');
+      toast.error(error.message || 'Error loading recipe');
     } finally {
       setLoading(false);
     }
@@ -34,6 +34,6 @@ export function useMealDetail(idMeal) {
   return {
     meal,
     loading,
-    fetchMealDetail, // ora puoi richiamarla anche da fuori
+    fetchMealDetail, // now you can call it from outside
   };
 }

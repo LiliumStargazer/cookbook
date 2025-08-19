@@ -29,7 +29,7 @@ export default function ProfileForm({
             value={username}
             onChange={onUsernameChange}
             disabled={!isEditing}
-            placeholder='Il tuo username'
+            placeholder='Your username'
           />
         </div>
         <div className='grid gap-2'>
@@ -42,7 +42,7 @@ export default function ProfileForm({
             onChange={onPasswordChange}
             onKeyDown={onPasswordKeyDown}
             disabled={!isEditing}
-            placeholder='La tua password'
+            placeholder='Your password'
           />
         </div>
         <div className='grid gap-2'>
@@ -54,19 +54,19 @@ export default function ProfileForm({
             value={email}
             onChange={onEmailChange}
             disabled={!isEditing}
-            placeholder='La tua email'
+            placeholder='Your email'
             required
           />
         </div>
         <div className='grid gap-2'>
-          <Label htmlFor='favoriteDishes'>Piatti preferiti</Label>
+          <Label htmlFor='favoriteDishes'>Favorite dishes</Label>
           <textarea
             id='favoriteDishes'
             name='favoriteDishes'
             value={favoriteDishes}
             onChange={onFavoriteDishesChange}
             disabled={!isEditing}
-            placeholder='I tuoi piatti preferiti'
+            placeholder='Your favorite dishes'
             rows={6}
             className='w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none'
           />
@@ -76,12 +76,12 @@ export default function ProfileForm({
       <div className='flex gap-4 pt-4'>
         {!isEditing ? (
           <Button type='button' onClick={onStartEditing} className='w-full' variant='destructive'>
-            Modifica Profilo
+            Edit Profile
           </Button>
         ) : (
           <>
             <Button type='submit' className='flex-1' variant='destructive' disabled={loading}>
-              Salva Modifiche
+              Save Changes
             </Button>
             <Button
               type='button'
@@ -90,7 +90,7 @@ export default function ProfileForm({
               onClick={onCancel}
               className='flex-1'
             >
-              Annulla
+              Cancel
             </Button>
           </>
         )}

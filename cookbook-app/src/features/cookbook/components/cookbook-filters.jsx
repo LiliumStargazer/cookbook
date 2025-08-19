@@ -26,26 +26,26 @@ export default function CookbookFilters({
   return (
     <div className='mb-6 space-y-4'>
       <div className='flex flex-col sm:flex-row gap-4'>
-        {/* Barra di ricerca */}
+        {/* Search bar */}
         <div className='relative flex-1'>
           <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
           <Input
-            placeholder='Cerca nelle tue ricette...'
+            placeholder='Search your recipes...'
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             className='!pl-10'
           />
         </div>
 
-        {/* Filtri */}
+        {/* Filters */}
         <div className='flex gap-2'>
           <Filter className='w-4 h-4 mr-1 mt-2' />
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
             <SelectTrigger className='w-[190px]'>
-              <SelectValue placeholder='Categoria' />
+              <SelectValue placeholder='Category' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='all'>Tutte le categorie</SelectItem>
+              <SelectItem value='all'>All categories</SelectItem>
               {categories.map(category => (
                 <SelectItem key={category} value={category}>
                   {category}
@@ -56,10 +56,10 @@ export default function CookbookFilters({
 
           <Select value={selectedArea} onValueChange={setSelectedArea}>
             <SelectTrigger className='w-[190px]'>
-              <SelectValue placeholder='Origine' />
+              <SelectValue placeholder='Origin' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='all'>Tutte le origini</SelectItem>
+              <SelectItem value='all'>All origins</SelectItem>
               {areas.map(area => (
                 <SelectItem key={area} value={area}>
                   {area}
@@ -70,15 +70,15 @@ export default function CookbookFilters({
         </div>
       </div>
 
-      {/* Contatore risultati filtrati */}
+      {/* Filtered results counter */}
       {hasActiveFilters && (
         <div className='flex items-center justify-between'>
           <p className='text-sm text-gray-600'>
-            {filteredRecipes.length} ricett
-            {filteredRecipes.length === 1 ? 'a trovata' : 'e trovate'}
+            {filteredRecipes.length} recipe
+            {filteredRecipes.length === 1 ? ' found' : 's found'}
           </p>
           <Button variant='ghost' size='sm' onClick={onClearFilters}>
-            Pulisci filtri
+            Clear filters
           </Button>
         </div>
       )}

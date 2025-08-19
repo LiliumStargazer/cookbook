@@ -27,7 +27,7 @@ export default function MealHeader({ meal }) {
               ))}
           </div>
 
-          {/* Azioni ricettario */}
+          {/* Cookbook actions */}
           <div className='mb-4'>
             <AddToCookbookButton meal={meal} />
           </div>
@@ -39,7 +39,7 @@ export default function MealHeader({ meal }) {
               onClick={() => window.open(meal.strYoutube, '_blank')}
             >
               <ExternalLink className='w-4 h-4 mr-2' />
-              Guarda il video tutorial
+              Watch the video tutorial
             </Button>
           )}
 
@@ -50,7 +50,7 @@ export default function MealHeader({ meal }) {
               onClick={() => window.open(meal.strSource, '_blank')}
             >
               <ExternalLink className='w-4 h-4 mr-2' />
-              Ricetta originale
+              Original recipe
             </Button>
           )}
         </div>

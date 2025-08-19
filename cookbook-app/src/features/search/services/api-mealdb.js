@@ -1,17 +1,17 @@
 import api from '../../../lib/axios.js';
 
-// Cerca pasto per nome
+// Search meal by name
 export async function searchMealByName(name) {
   try {
     const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/search-by-name?s=${name}`);
     return { success: true, data: response.data };
   } catch (error) {
     console.log(error);
-    return { success: false, error: error.response?.data || 'Errore ricerca per nome' };
+    return { success: false, error: error.response?.data || 'Error searching by name' };
   }
 }
 
-// Cerca pasti che iniziano con una lettera specifica
+// Search meals that start with a specific letter
 export async function searchMealByLetter(letter) {
   try {
     const response = await api.get(
@@ -19,31 +19,31 @@ export async function searchMealByLetter(letter) {
     );
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore ricerca per lettera' };
+    return { success: false, error: error.response?.data || 'Error searching by letter' };
   }
 }
 
-// Elenca tutte le categorie disponibili
+// List all available categories
 export async function getMealCategories() {
   try {
     const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/categories`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore categorie' };
+    return { success: false, error: error.response?.data || 'Error loading categories' };
   }
 }
 
-// Elenca categorie (c), aree (a) o ingredienti (i)
+// List categories (c), areas (a) or ingredients (i)
 export async function getMealList(type) {
   try {
     const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/list?type=${type}`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore lista' };
+    return { success: false, error: error.response?.data || 'Error loading list' };
   }
 }
 
-// Filtra pasti per ingrediente
+// Filter meals by ingredient
 export async function filterMealByIngredient(ingredient) {
   try {
     const response = await api.get(
@@ -51,11 +51,11 @@ export async function filterMealByIngredient(ingredient) {
     );
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore filtro ingrediente' };
+    return { success: false, error: error.response?.data || 'Error filtering by ingredient' };
   }
 }
 
-// Filtra pasti per categoria
+// Filter meals by category
 export async function filterMealByCategory(category) {
   try {
     const response = await api.get(
@@ -63,16 +63,16 @@ export async function filterMealByCategory(category) {
     );
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore filtro categoria' };
+    return { success: false, error: error.response?.data || 'Error filtering by category' };
   }
 }
 
-// Filtra pasti per area geografica
+// Filter meals by area
 export async function filterMealByArea(area) {
   try {
     const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/filter-by-area?a=${area}`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore filtro area' };
+    return { success: false, error: error.response?.data || 'Error filtering by area' };
   }
 }

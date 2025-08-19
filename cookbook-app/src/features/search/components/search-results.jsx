@@ -7,7 +7,7 @@ export default function SearchResults({ meals, loading }) {
   if (loading) {
     return (
       <div className='text-center py-8'>
-        <p>Caricamento...</p>
+        <p>Loading...</p>
       </div>
     );
   }
@@ -16,9 +16,7 @@ export default function SearchResults({ meals, loading }) {
     return (
       <Card>
         <CardContent className='py-12 text-center'>
-          <p className='text-muted-foreground'>
-            Nessuna ricetta trovata. Prova a cercare qualcosa!
-          </p>
+          <p className='text-muted-foreground'>No recipes found. Try searching for something!</p>
         </CardContent>
       </Card>
     );

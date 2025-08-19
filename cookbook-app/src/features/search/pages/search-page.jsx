@@ -32,11 +32,13 @@ export default function SearchPage() {
         <div className='max-w-6xl mx-auto'>
           {/* Header */}
           <div className='text-center mb-8'>
-            <h1 className='text-3xl font-bold mb-2'>Cerca Ricette</h1>
-            <p className='text-muted-foreground'>Esplora migliaia di ricette da tutto il mondo</p>
+            <h1 className='text-3xl font-bold mb-2'>Search Recipes</h1>
+            <p className='text-muted-foreground'>
+              Explore thousands of recipes from around the world
+            </p>
           </div>
 
-          {/* Filtri di ricerca */}
+          {/* Search filters */}
           <SearchFilters
             searchQuery={searchQuery}
             loading={loading}
@@ -57,7 +59,7 @@ export default function SearchPage() {
             onToggleFilters={toggleFilters}
           />
 
-          {/* Risultati */}
+          {/* Results */}
           <SearchResults meals={meals} loading={loading} />
         </div>
       </div>

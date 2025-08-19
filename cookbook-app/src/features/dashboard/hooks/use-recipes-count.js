@@ -19,7 +19,7 @@ export function useRecipesCount() {
       }
     } catch (error) {
       setError(true);
-      toast.error(error.message || 'Errore durante il recupero del conteggio ricette');
+      toast.error(error.message || 'Error retrieving recipes count');
     } finally {
       setLoading(false);
     }

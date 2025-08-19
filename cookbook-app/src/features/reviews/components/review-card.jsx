@@ -3,8 +3,6 @@ import { Star, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
 
 export default function ReviewCard({ review, userId, onClickDelete }) {
-  console.log('ReviewCard USERID', userId);
-  console.log('_id', review._id);
   return (
     <Card className='border p-3'>
       <CardContent className='flex flex-col gap-2'>

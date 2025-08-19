@@ -3,13 +3,13 @@ const Recipe = require('../models/Recipe');
 
 exports.createRecipe = async (req, res) => {
   try {
-    // Verifica se la ricetta esiste già per l'utente
+    // Check if the recipe already exists for the user
     const existing = await Recipe.findOne({ strMeal: req.body.strMeal, userId: req.userId });
     if (existing) {
-      return res.status(409).json({ error: 'Conflict', message: 'Ricetta già presente' });
+      return res.status(409).json({ error: 'Conflict', message: 'Recipe already exists' });
     }
 
-    // Costruisci gli array ingredienti/misure se arrivano come campi separati
+    // Build ingredient/measure arrays if they arrive as separate fields
     const strIngredients = [];
     const strMeasures = [];
     for (let i = 1; i <= 20; i++) {
@@ -28,13 +28,11 @@ exports.createRecipe = async (req, res) => {
     await recipe.save();
     res.status(201).json(recipe);
   } catch (err) {
-    console.error('Errore in login:', err);
-    res
-      .status(500)
-      .json({
-        error: 'InernalServerError',
-        message: 'Errore del server nella creazione della ricetta',
-      });
+    console.error('Error in createRecipe:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Server error during recipe creation',
+    });
   }
 };
 
@@ -43,10 +41,10 @@ exports.getUserRecipes = async (req, res) => {
     const recipes = await Recipe.find({ userId: req.userId });
     res.json(recipes);
   } catch (err) {
-    console.error('Errore in getting user recipes', err.message);
+    console.error('Error in getUserRecipes', err.message);
     res.status(500).json({
-      error: 'InernalServerError',
-      message: 'Errore del server nel recupero delle ricette',
+      error: 'InternalServerError',
+      message: 'Server error during recipe retrieval',
     });
   }
 };
@@ -57,13 +55,11 @@ exports.deleteRecipe = async (req, res) => {
       idMeal: req.params.id,
       userId: req.userId,
     });
-    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Ricetta non trovata' });
+    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Recipe not found' });
     return res.status(204).end();
   } catch (err) {
-    console.error('Errore in deleteRecipe', err);
-    res
-      .status(500)
-      .json({ error: 'InernalServerError', message: 'Errore del server in nella cancellazione' });
+    console.error('Error in deleteRecipe', err);
+    res.status(500).json({ error: 'InternalServerError', message: 'Server error during deletion' });
   }
 };
 
@@ -75,12 +71,12 @@ exports.updateRecipeNote = async (req, res) => {
     if (typeof note !== 'string')
       return res
         .status(400)
-        .json({ error: 'BadRequest', message: 'Campo note mancante o non valido' });
+        .json({ error: 'BadRequest', message: 'Missing or invalid note field' });
 
-    note = note.trim(); // viene comunque ritagliata anche da Mongoose
+    note = note.trim(); // still trimmed by Mongoose
 
     const recipe = await Recipe.findOne({ _id: id, userId: req.userId });
-    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Ricetta non trovata' });
+    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Recipe not found' });
     recipe.note = note;
     await recipe.save();
     res.status(200).json({
@@ -90,10 +86,10 @@ exports.updateRecipeNote = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error('Errore in updateRecipeNote', err);
+    console.error('Error in updateRecipeNote', err);
     res
       .status(500)
-      .json({ error: 'InernalServerError', message: 'Errore del server in aggiornamento nota' });
+      .json({ error: 'InternalServerError', message: 'Server error during note update' });
   }
 };
 
@@ -101,17 +97,17 @@ exports.deleteRecipeNote = async (req, res) => {
   try {
     const { id } = req.params; // idMeal
     const recipe = await Recipe.findOne({ _id: id, userId: req.userId });
-    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Ricetta non trovata' });
+    if (!recipe) return res.status(404).json({ error: 'NotFound', message: 'Recipe not found' });
 
-    if (!recipe.note) return res.status(204).end(); // già vuota
+    if (!recipe.note) return res.status(204).end(); // already empty
 
-    recipe.note = ''; // oppure: recipe.note = undefined;
+    recipe.note = ''; // or: recipe.note = undefined;
     await recipe.save();
-    return res.status(204).end(); // nessun contenuto
+    return res.status(204).end(); // no content
   } catch (err) {
-    console.error('Errore delete nota:', err);
+    console.error('Error in deleteRecipeNote:', err);
     res
       .status(500)
-      .json({ error: 'InernalServerError', message: 'Errore del server in cancellazione nota' });
+      .json({ error: 'InternalServerError', message: 'Server error during note deletion' });
   }
 };

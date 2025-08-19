@@ -6,21 +6,21 @@ export default function AddToCookbookButton({ meal }) {
   const { loading, isInUserCookbook, toggleCookbook } = useToggleCookbook(meal);
 
   return (
-    <div className="flex gap-2 w-full">
+    <div className='flex gap-2 w-full'>
       <Button
         onClick={toggleCookbook}
         disabled={loading}
         variant={isInUserCookbook ? 'destructive' : 'outline'}
-        className="flex-1"
+        className='flex-1'
       >
         {loading ? (
-          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+          <Loader2 className='w-4 h-4 mr-2 animate-spin' />
         ) : isInUserCookbook ? (
-          <Heart className="w-4 h-4 mr-2 fill-current" />
+          <Heart className='w-4 h-4 mr-2 fill-current' />
         ) : (
-          <HeartHandshake className="w-4 h-4 mr-2" />
+          <HeartHandshake className='w-4 h-4 mr-2' />
         )}
-        {isInUserCookbook ? 'Rimuovi dal ricettario' : 'Aggiungi al ricettario'}
+        {isInUserCookbook ? 'Remove from cookbook' : 'Add to cookbook'}
       </Button>
     </div>
   );

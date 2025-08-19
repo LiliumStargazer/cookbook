@@ -48,7 +48,6 @@ export default function ProfilePage() {
               onStartEditing={startEditing}
             />
           </ProfileCard>
-
           <DangerZoneCard onDeleteAccount={handleDeleteAccount} loading={deleteLoading} />
         </div>
       </div>

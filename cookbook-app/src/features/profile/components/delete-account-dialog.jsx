@@ -18,7 +18,7 @@ export default function DeleteAccountDialog({ children, onConfirm, loading = fal
   const [isOpen, setIsOpen] = useState(false);
 
   const handleConfirm = () => {
-    if (confirmText === 'ELIMINA') {
+    if (confirmText === 'DELETE') {
       onConfirm();
       setIsOpen(false);
       setConfirmText('');
@@ -30,40 +30,35 @@ export default function DeleteAccountDialog({ children, onConfirm, loading = fal
     setConfirmText('');
   };
 
-  const isConfirmValid = confirmText === 'ELIMINA';
+  const isConfirmValid = confirmText === 'DELETE';
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent className='max-w-md'>
         <AlertDialogHeader>
-          <AlertDialogTitle className='text-red-600'>
-            ⚠️ Conferma Eliminazione Account
-          </AlertDialogTitle>
+          <AlertDialogTitle className='text-red-600'>⚠️ Confirm Account Deletion</AlertDialogTitle>
           <AlertDialogDescription className='space-y-4'>
             <p>
-              Questa azione eliminerà <strong>definitivamente</strong> il tuo account e tutti i dati
-              associati:
+              This action will <strong>permanently</strong> delete your account and all associated
+              data:
             </p>
             <ul className='list-disc list-inside space-y-1 text-sm'>
-              <li>Tutte le tue ricette</li>
-              <li>Recensioni e commenti</li>
-              <li>Preferenze e impostazioni</li>
-              <li>Cronologia di navigazione</li>
+              <li>All your recipes</li>
+              <li>Reviews and comments</li>
+              <li>Preferences and settings</li>
+              <li>Browsing history</li>
             </ul>
-            <p className='font-semibold text-red-700'>
-              Questa operazione non può essere annullata.
-            </p>
+            <p className='font-semibold text-red-700'>This operation cannot be undone.</p>
             <div className='mt-4'>
               <Label htmlFor='confirm-delete' className='text-sm font-medium'>
-                Per confermare, scrivi{' '}
-                <span className='font-mono bg-gray-100 px-1 rounded'>ELIMINA</span>:
+                To confirm, type <span className='font-mono bg-gray-100 px-1 rounded'>DELETE</span>:
               </Label>
               <Input
                 id='confirm-delete'
                 value={confirmText}
                 onChange={e => setConfirmText(e.target.value)}
-                placeholder='Scrivi ELIMINA per confermare'
+                placeholder='Type DELETE to confirm'
                 className='mt-2'
                 autoComplete='off'
               />
@@ -71,13 +66,13 @@ export default function DeleteAccountDialog({ children, onConfirm, loading = fal
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={handleCancel}>Annulla</AlertDialogCancel>
+          <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleConfirm}
             disabled={!isConfirmValid || loading}
             className='bg-red-600 hover:bg-red-700 focus:ring-red-500'
           >
-            {loading ? 'Eliminazione...' : 'Elimina Definitivamente'}
+            {loading ? 'Deleting...' : 'Permanently Delete'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

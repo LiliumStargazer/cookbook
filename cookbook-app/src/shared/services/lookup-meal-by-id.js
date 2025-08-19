@@ -1,4 +1,4 @@
-// Ottieni dettagli di un pasto tramite ID
+// Get meal details by ID
 import api from '@/lib/axios.js';
 
 export async function lookupMealById(id) {
@@ -6,6 +6,6 @@ export async function lookupMealById(id) {
     const response = await api.get(`${import.meta.env.VITE_MEALDB_URL}/lookup?i=${id}`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data || 'Errore ricerca per ID' };
+    return { success: false, error: error.response?.data || 'Error searching by ID' };
   }
 }

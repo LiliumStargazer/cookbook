@@ -11,7 +11,11 @@ router.get('/search-by-name', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/search.php?s=${s}`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nella ricerca del pasto');
+    console.error('Error searching meal by name:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error searching meal by name',
+    });
   }
 });
 
@@ -22,7 +26,11 @@ router.get('/search-by-letter', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/search.php?f=${f}`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nella ricerca per lettera');
+    console.error('Error searching meal by letter:', err);
+    res.status(500).json({
+      error: 'Error searching meal by letter',
+      message: 'Error searching by letter',
+    });
   }
 });
 
@@ -33,7 +41,11 @@ router.get('/lookup', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/lookup.php?i=${i}`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel lookup del pasto');
+    console.error('Error in meal lookup', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error in meal lookup',
+    });
   }
 });
 
@@ -43,7 +55,11 @@ router.get('/random', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/random.php`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel recupero del pasto casuale');
+    console.error('Error searching for random meal', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error searching for random meal',
+    });
   }
 });
 
@@ -53,7 +69,11 @@ router.get('/categories', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/categories.php`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel recupero delle categorie');
+    console.log('Error retrieving categories:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error retrieving categories',
+    });
   }
 });
 
@@ -64,7 +84,11 @@ router.get('/list', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/list.php?${type}=list`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel recupero della lista');
+    console.error('Error retrieving the list:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error retrieving the list',
+    });
   }
 });
 
@@ -75,7 +99,11 @@ router.get('/filter-by-ingredient', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/filter.php?i=${i}`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel filtro per ingrediente');
+    console.error('Error retrieving the list by ingredient:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error retrieving the list by ingredient',
+    });
   }
 });
 
@@ -86,7 +114,11 @@ router.get('/filter-by-category', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/filter.php?c=${c}`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel filtro per categoria');
+    console.error('Error retrieving the list by category:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error retrieving the list by category',
+    });
   }
 });
 
@@ -97,7 +129,11 @@ router.get('/filter-by-area', async (req, res) => {
     const response = await axios.get(`${BASE_URL}/filter.php?a=${a}`);
     res.json(response.data);
   } catch (err) {
-    res.status(500).send('Errore nel filtro per area');
+    console.error('Error retrieving the list by area:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error retrieving the list by area',
+    });
   }
 });
 
@@ -113,7 +149,11 @@ router.get('/count', async (req, res) => {
     }
     res.json({ count: total });
   } catch (err) {
-    res.status(500).send('Errore nel conteggio delle ricette');
+    console.error('Error counting recipes:', err);
+    res.status(500).json({
+      error: 'InternalServerError',
+      message: 'Error counting recipes',
+    });
   }
 });
 

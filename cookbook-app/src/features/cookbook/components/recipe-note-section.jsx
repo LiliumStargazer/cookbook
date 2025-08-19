@@ -18,7 +18,7 @@ export default function RecipeNoteSection({
       <div className='flex items-center justify-between mb-2'>
         <span className='text-sm font-medium text-gray-700 flex items-center'>
           <NotebookPen className='w-4 h-4 mr-1' />
-          Nota personale
+          Personal note
         </span>
         <Button
           variant='ghost'
@@ -54,13 +54,13 @@ export default function RecipeNoteSection({
           </Button>
         )}
       </div>
-      {/* Altezza fissa per evitare shift */}
+      {/* Fixed height to avoid shift */}
       <div className='h-24'>
         {isEditingNote ? (
           <Textarea
             value={noteText}
             onChange={e => setNoteText(e.target.value)}
-            placeholder='Aggiungi una nota personale per questa ricetta...'
+            placeholder='Add a personal note for this recipe...'
             className='h-full text-sm !resize-none leading-snug overflow-auto'
             disabled={isLoading}
           />
@@ -70,7 +70,7 @@ export default function RecipeNoteSection({
           </p>
         ) : (
           <div className='h-full flex items-center justify-start text-gray-400 italic text-sm leading-snug'>
-            Nessuna nota aggiunta
+            No note added
           </div>
         )}
       </div>

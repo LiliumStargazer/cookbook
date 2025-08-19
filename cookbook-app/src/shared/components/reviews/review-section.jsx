@@ -7,7 +7,7 @@ export default function ReviewSection({
   onSubmitReview,
   loading = false,
   showForm = true,
-  title = 'Recensioni',
+  title = 'Reviews',
 }) {
   const averageRating =
     reviews.length > 0
@@ -29,7 +29,7 @@ export default function ReviewSection({
 
   return (
     <div className='space-y-6'>
-      {/* Header con statistiche */}
+      {/* Header with statistics */}
       <Card>
         <CardHeader>
           <CardTitle className='flex items-center justify-between'>
@@ -39,27 +39,27 @@ export default function ReviewSection({
                 <>
                   {renderStars(averageRating)}
                   <span className='font-medium'>{averageRating}</span>
-                  <span className='text-muted-foreground'>({reviews.length} recensioni)</span>
+                  <span className='text-muted-foreground'>({reviews.length} reviews)</span>
                 </>
               ) : (
-                <span className='text-muted-foreground'>Nessuna recensione</span>
+                <span className='text-muted-foreground'>No reviews</span>
               )}
             </div>
           </CardTitle>
         </CardHeader>
       </Card>
 
-      {/* Form per aggiungere recensione */}
+      {/* Form to add a review */}
       {showForm && <ReviewForm onSubmit={onSubmitReview} loading={loading} />}
 
-      {/* Lista recensioni */}
+      {/* Review list */}
       <div className='space-y-4'>
         {reviews.length === 0 ? (
           <Card>
             <CardContent className='py-8 text-center'>
               <p className='text-muted-foreground'>
-                Non ci sono ancora recensioni per questa ricetta.
-                {showForm && ' Sii il primo a lasciarne una!'}
+                There are no reviews for this recipe yet.
+                {showForm && ' Be the first to leave one!'}
               </p>
             </CardContent>
           </Card>

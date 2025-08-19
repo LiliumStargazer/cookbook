@@ -37,36 +37,34 @@ export default function ReviewForm({ onSubmit, loading = false }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='text-lg'>Aggiungi una recensione</CardTitle>
+        <CardTitle className='text-lg'>Add a review</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div>
-            <Label className='text-sm font-medium'>Valutazione</Label>
+            <Label className='text-sm font-medium'>Rating</Label>
             <div className='flex items-center space-x-1 mt-2'>
               {[1, 2, 3, 4, 5].map(renderStarButton)}
             </div>
-            {rating === 0 && (
-              <p className='text-xs text-muted-foreground mt-1'>Seleziona una valutazione</p>
-            )}
+            {rating === 0 && <p className='text-xs text-muted-foreground mt-1'>Select a rating</p>}
           </div>
 
           <div>
             <Label htmlFor='comment' className='text-sm font-medium'>
-              Commento
+              Comment
             </Label>
             <Textarea
               id='comment'
               value={comment}
               onChange={e => setComment(e.target.value)}
-              placeholder='Scrivi qui la tua recensione...'
+              placeholder='Write your review here...'
               rows={4}
               className='mt-2'
             />
           </div>
 
           <Button type='submit' disabled={rating === 0 || loading} className='w-full'>
-            {loading ? 'Pubblicazione...' : 'Pubblica Recensione'}
+            {loading ? 'Publishing...' : 'Publish Review'}
           </Button>
         </form>
       </CardContent>

@@ -6,7 +6,7 @@ export default function CookbookLoadingState() {
       <div className='flex items-center justify-center h-64'>
         <div className='text-center'>
           <BookOpen className='w-12 h-12 mx-auto mb-4 text-gray-400 animate-pulse' />
-          <p className='text-gray-500'>Caricamento ricettario...</p>
+          <p className='text-gray-500'>Loading cookbook...</p>
         </div>
       </div>
     </div>

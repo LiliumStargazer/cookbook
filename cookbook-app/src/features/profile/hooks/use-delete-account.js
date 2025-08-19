@@ -14,11 +14,11 @@ export function useDeleteAccount() {
     try {
       const response = await deleteUser(userData);
       if (response.success) {
-        toast.success('Account eliminato con successo');
+        toast.success('Account successfully deleted');
         logout();
         navigate('/auth/login');
       } else {
-        toast.error(response.error || "Errore durante l'eliminazione dell'account");
+        toast.error(response.error || 'Error deleting account');
       }
     } catch (error) {
       toast.error(error.message);

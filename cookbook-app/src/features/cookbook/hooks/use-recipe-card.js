@@ -14,7 +14,7 @@ export function useRecipeCard(recipe, onNoteUpdate) {
       setLoadingNote(prev => ({ ...prev, [recipe._id]: true }));
       const response = await updateRecipeNote(recipe._id, noteText);
       if (response.success) {
-        toast.success('Nota aggiornata con successo');
+        toast.success('Note updated successfully');
         setIsEditingNote(false);
         onNoteUpdate?.();
       } else {
@@ -33,7 +33,7 @@ export function useRecipeCard(recipe, onNoteUpdate) {
       const response = await removeRecipeNote(recipe._id);
 
       if (response.success) {
-        toast.success('Nota rimossa con successo');
+        toast.success('Note removed successfully');
         setNoteText('');
         setIsEditingNote(false);
         onNoteUpdate?.(recipe._id, '');
@@ -41,7 +41,7 @@ export function useRecipeCard(recipe, onNoteUpdate) {
         toast.error(response.error);
       }
     } catch (error) {
-      toast.error(error.message || 'Errore nella rimozione della nota');
+      toast.error(error.message || 'Error removing note');
     } finally {
       setLoadingNote(prev => ({ ...prev, [recipe._id]: false }));
     }

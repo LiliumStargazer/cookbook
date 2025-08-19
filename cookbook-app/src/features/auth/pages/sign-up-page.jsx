@@ -23,11 +23,11 @@ export default function SignUpPage() {
       className='min-vh-100 vw-100 d-flex flex-row align-items-stretch'
       style={{ background: '#fff' }}
     >
-      {/* Colonna sinistra: immagine, metà pagina */}
-      <AuthBackground className='d-flex  justify-content-center align-items-start overflow-hidden'>
+      {/* Left column: image, half page */}
+      <AuthBackground className='d-flex justify-content-center align-items-start overflow-hidden'>
         <AuthPromo />
       </AuthBackground>
-      {/* Colonna destra: card di registrazione su sfondo bianco, metà pagina */}
+      {/* Right column: registration card on white background, half page */}
       <div
         className='d-flex flex-column align-items-center justify-content-center'
         style={{
@@ -40,9 +40,9 @@ export default function SignUpPage() {
       >
         <AuthCard
           title='CookBook'
-          description='Registrazione'
+          description='Sign Up'
           image='/src/assets/recipe.png'
-          buttonText='Registrati'
+          buttonText='Sign Up'
           buttonVariant='primary'
         >
           <AuthForm
@@ -51,7 +51,7 @@ export default function SignUpPage() {
                 id: 'username',
                 label: 'Username',
                 type: 'text',
-                placeholder: 'Inserisci username',
+                placeholder: 'Enter username',
                 value: username,
                 onChange: handleUsernameChange,
                 required: true,
@@ -61,7 +61,7 @@ export default function SignUpPage() {
                 id: 'email',
                 label: 'Email',
                 type: 'email',
-                placeholder: 'Inserisci la tua email',
+                placeholder: 'Enter your email',
                 value: email,
                 onChange: handleEmailChange,
                 required: true,
@@ -70,16 +70,16 @@ export default function SignUpPage() {
                 id: 'password',
                 label: 'Password',
                 type: 'password',
-                placeholder: 'Inserisci la password',
+                placeholder: 'Enter password',
                 value: password,
                 onChange: handlePasswordChange,
                 required: true,
               },
               {
                 id: 'favoriteDishes',
-                label: 'Piatti preferiti (separati da virgola)',
+                label: 'Favorite dishes (comma separated)',
                 type: 'text',
-                placeholder: 'Es: Pizza, Pasta, Sushi',
+                placeholder: 'E.g.: Pizza, Pasta, Sushi',
                 value: favoriteDishes,
                 onChange: handleFavoriteDishesChange,
                 required: false,
@@ -87,7 +87,7 @@ export default function SignUpPage() {
             ]}
             onSubmit={handleSubmit}
             loading={loading}
-            buttonText='Registrati'
+            buttonText='Sign Up'
           />
         </AuthCard>
       </div>

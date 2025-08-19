@@ -22,7 +22,7 @@ export default function RecipeDetailPage() {
       <div className='w-full'>
         <NavBar />
         <div className='container mx-auto px-4 py-8'>
-          <div className='text-center'>Caricamento dettagli ricetta...</div>
+          <div className='text-center'>Loading recipe details...</div>
         </div>
       </div>
     );
@@ -41,18 +41,18 @@ export default function RecipeDetailPage() {
     <div className='w-full'>
       <NavBar />
       <div className='container mx-auto px-4 py-8'>
-        {/* Header con navigazione */}
+        {/* Header with navigation */}
         <div className='mb-6'>
           <BackToSearchButton onClick={handleBackToSearch} />
         </div>
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-          {/* Immagine e info base */}
+          {/* Image and basic info */}
           <div>
             <MealHeader meal={meal} />
           </div>
 
-          {/* Ingredienti e istruzioni */}
+          {/* Ingredients and instructions */}
           <div className='space-y-6'>
             <IngredientsList ingredients={ingredients} />
             <InstructionsCard instructions={meal.strInstructions} />
