@@ -96,7 +96,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// il middeware auth.js estrae il token prima di chiamare questa funzione e riconosce l'utente.
+// memo: il middeware auth.js estrae il token prima di chiamare questa funzione e riconosce l'utente.
 exports.deleteUser = async (req, res) => {
   if (!req.userId) {
     return res.status(401).json({ error: 'Unauthorized', message: 'Utente non autorizzato' });
@@ -117,7 +117,7 @@ exports.deleteUser = async (req, res) => {
     await Promise.all([
       User.findByIdAndDelete(req.userId),
       Recipe.deleteMany({ userId: req.userId }),
-      Review.deleteMany({ userId: req.userId }),
+      Review.updateMany({ userId: req.userId }, { $set: { username: 'Deleted user' } }), // non cancello le recensioni dell'utente ma imposto sulle recensioni che l'utente è stato eliminato
     ]);
 
     res.json({
