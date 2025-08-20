@@ -6,7 +6,11 @@ export async function addToCookBook(data) {
     const response = await api.post(`${import.meta.env.VITE_RECIPE_URL}`, data);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data.message || 'Error creating recipe' };
+    return {
+      success: false,
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error creating recipe',
+    };
   }
 }
 
@@ -18,7 +22,8 @@ export async function removeFromCookbook(id) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data.message || 'Error deleting recipe',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error deleting recipe',
     };
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   searchMealByName,
   getMealCategories,
@@ -25,51 +25,37 @@ export function useSearch() {
   const [showFilters, setShowFilters] = useState(false);
 
   // Load categories and areas on mount
-  useEffect(() => {
-    loadInitialData();
-  }, []);
-
-  const loadInitialData = async () => {
+  const loadInitialData = useCallback(async () => {
     try {
       const [categoriesResult, areasResult, ingredientResult] = await Promise.all([
         getMealCategories(),
-        getMealList('a'), // 'a' for areas
-        getMealList('i'), // 'i' for ingredients
+        getMealList('a'),
+        getMealList('i'),
       ]);
 
       if (categoriesResult.success) {
-        const categoriesWithAll = [
-          { strCategory: 'None' }, // Empty option for "All categories"
-          ...(categoriesResult.data.categories || []),
-        ];
-        setCategories(categoriesWithAll);
+        setCategories([{ strCategory: 'None' }, ...(categoriesResult.data.categories || [])]);
       }
       if (areasResult.success) {
-        const areasWithAll = [
-          { strArea: 'None' }, // Empty option for "All areas"
-          ...(areasResult.data.meals || []),
-        ];
-        setAreas(areasWithAll);
+        setAreas([{ strArea: 'None' }, ...(areasResult.data.meals || [])]);
       }
       if (ingredientResult.success) {
-        const ingredientResultWithAll = [
-          { strIngredient: 'None' }, // Empty option for "All ingredients"
-          ...(ingredientResult.data.meals || []),
-        ];
-        setIngredients(ingredientResultWithAll);
+        setIngredients([{ strIngredient: 'None' }, ...(ingredientResult.data.meals || [])]);
       }
     } catch (error) {
       toast.error('Error loading initial data');
-      console.error('Error loading initial data:', error);
     }
-  };
+  }, []);
 
-  const handleSearch = async () => {
+  useEffect(() => {
+    loadInitialData();
+  }, [loadInitialData]);
+
+  const handleSearch = useCallback(async () => {
     if (!searchQuery.trim()) {
       toast.error('Enter a keyword to search');
       return;
     }
-
     setLoading(true);
     try {
       const result = await searchMealByName(searchQuery);
@@ -79,34 +65,34 @@ export function useSearch() {
           toast.info('No recipes found');
         }
       } else {
-        toast.error(result.error);
+        toast.error(result.message);
         setMeals([]);
       }
     } catch (error) {
-      toast.error('Error during search', error);
+      toast.error(error.message);
       setMeals([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery]);
 
-  const handleRandomMeal = async () => {
+  const handleRandomMeal = useCallback(async () => {
     setLoading(true);
     try {
       const result = await getRandomMeal();
       if (result.success) {
         setMeals(result.data.meals || []);
       } else {
-        toast.error(result.error);
+        toast.error(result.message);
       }
     } catch (error) {
-      toast.error('Error loading random recipe', error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleCategoryFilter = async category => {
+  const handleCategoryFilter = useCallback(async category => {
     setSelectedCategory(category);
     if (!category) return;
 
@@ -116,19 +102,19 @@ export function useSearch() {
       if (result.success) {
         setMeals(result.data.meals || []);
       } else {
-        toast.error(result.error);
+        toast.error(result.message);
       }
     } catch (error) {
-      toast.error('Error filtering by category', error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleAreaFilter = async area => {
+  const handleAreaFilter = useCallback(async area => {
     setSelectedArea(area);
     if (!area) return;
-    // If area is "None", do not apply filter
+    // Se area è "None", non applicare il filtro
     if (area === 'None') {
       setMeals([]);
       return;
@@ -139,19 +125,19 @@ export function useSearch() {
       if (result.success) {
         setMeals(result.data.meals || []);
       } else {
-        toast.error(result.error);
+        toast.error(result.message);
       }
     } catch (error) {
-      toast.error('Error filtering by area', error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleIngredientFilter = async ingredient => {
+  const handleIngredientFilter = useCallback(async ingredient => {
     setSelectedIngredient(ingredient);
     if (!ingredient) return;
-    // If ingredient is "None", do not apply filter
+    // Se l'ingrediente è "None", non applicare il filtro
     if (ingredient === 'None') {
       setMeals([]);
       return;
@@ -162,25 +148,25 @@ export function useSearch() {
       if (result.success) {
         setMeals(result.data.meals || []);
       } else {
-        toast.error(result.error);
+        toast.error(result.message);
       }
     } catch (error) {
-      toast.error('Error filtering by ingredient', error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setSelectedCategory('');
     setSelectedArea('');
     setSearchQuery('');
     setMeals([]);
-  };
+  }, []);
 
-  const toggleFilters = () => {
-    setShowFilters(!showFilters);
-  };
+  const toggleFilters = useCallback(() => {
+    setShowFilters(prev => !prev);
+  }, []);
 
   return {
     // State

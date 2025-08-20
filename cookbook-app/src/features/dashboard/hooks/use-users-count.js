@@ -15,11 +15,11 @@ export function useUsersCount() {
         setUsersCount(response.data.count);
       } else {
         setError(true);
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
       setError(true);
-      toast.error(error || 'Error retrieving user count');
+      toast.error(error);
     } finally {
       setLoading(false);
     }

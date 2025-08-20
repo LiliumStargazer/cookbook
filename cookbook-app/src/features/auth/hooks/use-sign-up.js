@@ -34,10 +34,9 @@ export default function useSignUp() {
         toast.success('Registration successful! Redirecting you to the login page');
         setTimeout(() => {
           navigate('/signin');
-          window.location.reload();
         }, 2500);
       } else {
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
       toast.error(error.message);

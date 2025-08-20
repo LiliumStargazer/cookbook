@@ -8,7 +8,8 @@ export async function addReview(data) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Error creating review',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error creating review',
     };
   }
 }
@@ -21,7 +22,8 @@ export async function getReviews(idMeal) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Error loading reviews',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error loading reviews',
     };
   }
 }
@@ -33,7 +35,8 @@ export async function deleteReview(id) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Error deleting review',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error deleting review',
     };
   }
 }

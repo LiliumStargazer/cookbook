@@ -13,10 +13,10 @@ export default function useReviews(idMeal) {
       if (response.success) {
         setReviews(response.data);
       } else {
-        toast.error(response.error || 'Error loading reviews');
+        toast.error(response.message);
       }
     } catch (err) {
-      toast.error(err.message || 'Error loading reviews');
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }

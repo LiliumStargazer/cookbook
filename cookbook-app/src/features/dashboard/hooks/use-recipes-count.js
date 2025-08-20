@@ -15,11 +15,11 @@ export function useRecipesCount() {
         setRecipesCount(response.data.count);
       } else {
         setError(true);
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
       setError(true);
-      toast.error(error.message || 'Error retrieving recipes count');
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

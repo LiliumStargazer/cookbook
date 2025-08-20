@@ -18,7 +18,7 @@ export function useDeleteAccount() {
         logout();
         navigate('/auth/login');
       } else {
-        toast.error(response.error || 'Error deleting account');
+        toast.error(response.message);
       }
     } catch (error) {
       toast.error(error.message);

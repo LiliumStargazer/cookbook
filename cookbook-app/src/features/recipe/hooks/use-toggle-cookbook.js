@@ -24,10 +24,10 @@ export function useToggleCookbook(meal) {
           isInUserCookbook ? 'Recipe removed from cookbook' : 'Recipe added to cookbook',
         );
       } else {
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
-      toast.error(error.message || 'Error managing recipe');
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

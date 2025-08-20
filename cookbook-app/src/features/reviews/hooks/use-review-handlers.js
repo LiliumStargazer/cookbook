@@ -19,7 +19,7 @@ export default function useReviewHandlers({ submitReview, refetch }) {
           toast.success('Review deleted successfully');
           refetch();
         } else {
-          toast.error(response.error || 'Error deleting review');
+          toast.error(response.message);
         }
       } catch (error) {
         console.error(error.message);

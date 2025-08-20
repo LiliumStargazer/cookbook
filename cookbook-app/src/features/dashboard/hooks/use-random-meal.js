@@ -13,10 +13,10 @@ export function useRandomMeal() {
       if (response.success) {
         setRandomMeal(response.data.meals?.[0] || null);
       } else {
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
-      toast.error(error.message || 'Error retrieving user count');
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

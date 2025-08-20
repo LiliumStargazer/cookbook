@@ -18,10 +18,10 @@ export function useMealDetail(idMeal) {
       if (response.success && response.data.meals && response.data.meals[0]) {
         setMeal(response.data.meals[0]);
       } else {
-        toast.error(response.message || 'Recipe not found');
+        toast.error(response.message);
       }
     } catch (error) {
-      toast.error(error.message || 'Error loading recipe');
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

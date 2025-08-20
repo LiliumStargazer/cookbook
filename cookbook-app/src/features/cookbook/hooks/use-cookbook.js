@@ -17,7 +17,7 @@ export function useCookbook() {
       if (response.success) {
         setUserRecipes(response.data);
       } else {
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (err) {
       toast.error(err.message || 'Error loading recipes');

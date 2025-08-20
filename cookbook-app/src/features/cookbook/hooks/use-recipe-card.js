@@ -18,7 +18,7 @@ export function useRecipeCard(recipe, onNoteUpdate) {
         setIsEditingNote(false);
         onNoteUpdate?.();
       } else {
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
       toast.error(error.message);

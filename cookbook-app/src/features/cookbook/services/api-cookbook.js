@@ -6,7 +6,11 @@ export async function getUserRecipes() {
     const response = await api.get(`${import.meta.env.VITE_RECIPE_URL}`);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data?.error || 'Error loading recipes' };
+    return {
+      success: false,
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error loading recipes',
+    };
   }
 }
 
@@ -20,7 +24,8 @@ export async function updateRecipeNote(recipeId, note) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.error || 'Error updating note',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error updating note',
     };
   }
 }
@@ -33,7 +38,8 @@ export async function removeRecipeNote(recipeId) {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.error || 'Error removing note',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error removing note',
     };
   }
 }

@@ -7,7 +7,8 @@ export const updateUser = async userData => {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Error updating profile',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error updating profile',
     };
   }
 };
@@ -19,7 +20,8 @@ export const deleteUser = async () => {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data?.message || 'Error deleting account',
+      error: error.response?.data?.error || 'UnknownError',
+      message: error.response?.data?.message || 'Error deleting account',
     };
   }
 };

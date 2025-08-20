@@ -53,7 +53,7 @@ export default function RecipeCard({ meal, children, isInCookbook, loading }) {
       <CardContent>{children}</CardContent>
       <CardFooter className='p-4 pt-0'>
         <Button className='w-full' variant='outline' onClick={handleViewRecipe}>
-          Vedi Ricetta
+          View Recipe
         </Button>
       </CardFooter>
     </Card>

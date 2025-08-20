@@ -21,52 +21,52 @@ export default function ReviewForm({ onSubmit, isLoading }) {
       }}
     >
       <div className='flex gap-1 items-center space-x-6'>
-        {/* Valutazione */}
+        {/* Rating */}
         {[1, 2, 3, 4, 5].map(star => (
           <button
             type='button'
             key={`rating-${star}`}
             onClick={() => setRating(star)}
             className={star <= rating ? 'text-red-500' : 'text-gray-300'}
-            aria-label={`Valuta ${star} stelle`}
+            aria-label={`Rate ${star} stars`} // aria label for acoustic accessibility
           >
             <Star className='w-5 h-5' />
           </button>
         ))}
-        <span className='ml-2 text-sm text-black'>{rating > 0 ? `${rating}/5` : 'Valuta'}</span>
-        {/* Difficoltà */}
+        <span className='ml-2 text-sm text-black'>{rating > 0 ? `${rating}/5` : 'Rate'}</span>
+        {/* Difficulty */}
         {[1, 2, 3, 4, 5].map(star => (
           <button
             type='button'
             key={`difficulty-${star}`}
             onClick={() => setDifficulty(star)}
             className={star <= difficulty ? 'text-red-500' : 'text-gray-300'}
-            aria-label={`Difficoltà ${star} su 5`}
+            aria-label={`Difficulty ${star} out of 5`}
           >
             <Star className='w-5 h-5' />
           </button>
         ))}
         <span className='ml-2 text-sm text-black'>
-          {difficulty > 0 ? `${difficulty}/5` : 'Difficoltà'}
+          {difficulty > 0 ? `${difficulty}/5` : 'Difficulty'}
         </span>
-        {/* Data */}
+        {/* Date */}
         <DayPicker
           date={preparationDate}
           setDate={setPreparationDate}
           className='!w-48'
-          aria-label='Data di preparazione'
+          aria-label='Preparation date'
         />
       </div>
       <Textarea
         value={comment}
         onChange={e => setComment(e.target.value)}
-        placeholder='Scrivi la tua recensione...'
+        placeholder='Write your review...'
         minLength={5}
         maxLength={500}
         required
         disabled={isLoading}
         className='text-sm overflow-auto !resize-none h-24'
-        aria-label='Commento recensione'
+        aria-label='Review comment'
       />
       <div className='flex justify-end'>
         <Button
@@ -76,7 +76,7 @@ export default function ReviewForm({ onSubmit, isLoading }) {
           disabled={isLoading || rating === 0 || !comment.trim()}
         >
           {isLoading ? (
-            'Invio...'
+            'Sending...'
           ) : (
             <SendHorizontal className='p-0 m-0 border-0 text-red-600 !w-6 !h-6' />
           )}

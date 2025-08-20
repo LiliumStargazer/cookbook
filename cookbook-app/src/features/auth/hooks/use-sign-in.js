@@ -19,7 +19,7 @@ export default function useSignIn() {
       if (response.success) {
         navigate('/');
       } else {
-        toast.error(response.error);
+        toast.error(response.message);
       }
     } catch (error) {
       toast.error(error.message);

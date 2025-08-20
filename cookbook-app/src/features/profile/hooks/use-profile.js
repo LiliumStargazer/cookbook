@@ -58,7 +58,7 @@ export function useProfile() {
         toast.success('Update successful!');
         setPassword('*****'); // Reset password after update
       } else {
-        toast.error(response.error || 'Error during update');
+        toast.error(response.message);
       }
     } catch (error) {
       // Network errors, timeout, server unreachable, etc.

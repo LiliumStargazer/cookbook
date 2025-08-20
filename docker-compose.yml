@@ -11,9 +11,9 @@ services:
       - ./cookbook-app:/app
       - /app/node_modules
     command: npm run dev -- --host 0.0.0.0 --port 5173
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-      - CHOKIDAR_INTERVAL=1000
+   # environment:
+     # - CHOKIDAR_USEPOLLING=true
+     # - CHOKIDAR_INTERVAL=1000
 
   cookbook-api:
     container_name: cookbook-api

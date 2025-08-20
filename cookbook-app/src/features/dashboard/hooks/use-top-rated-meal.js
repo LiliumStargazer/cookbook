@@ -17,13 +17,13 @@ export function useTopRatedMeals() {
         if (response.success) {
           setTopRatedMeal(response.data.meals?.[0] || null);
         } else {
-          toast.error(response.error);
+          toast.error(response.message);
         }
       } else {
         toast.error(response.error);
       }
     } catch (error) {
-      toast.error(error || 'Error retrieving user count');
+      toast.error(error);
     } finally {
       setLoading(false);
     }

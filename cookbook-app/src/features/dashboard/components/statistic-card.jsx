@@ -7,7 +7,7 @@ export default function StatisticCard({ loading, label, value, error }) {
       <CardHeader>
         <span className='text-xl font-semibold'>{label}</span>
       </CardHeader>
-      <CardContent>
+      <CardContent className='flex justify-center items-center'>
         {error ? (
           <span className='text-red-500'>Error</span>
         ) : loading ? (
