@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RequireAuth from './require-auth.jsx';
 import RequireGuest from './require-guest.jsx';
 import SignInPage from '../features/auth/pages/sign-in-page.jsx';
-import UnauthorizedPage from '../shared/pages/unauthorized-page.jsx';
 import SignUpPage from '../features/auth/pages/sign-up-page.jsx';
 import ProfilePage from '@/features/profile/pages/profile.jsx';
 import SearchPage from '@/features/search/pages/search-page.jsx';
@@ -32,8 +31,6 @@ export default function AppRoutes() {
             </RequireGuest>
           }
         />
-        {/* Pagina Unauthorized */}
-        <Route path='/unauthorized' element={<UnauthorizedPage />} />
         {/* Rotte protette per utenti loggati */}
         <Route
           path='/'
