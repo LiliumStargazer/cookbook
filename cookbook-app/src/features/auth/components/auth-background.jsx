@@ -4,7 +4,7 @@ export default function AuthBackground({ children, className = '' }) {
       className={`min-vh-100 vw-100 ${className}`}
       style={{
         background: 'linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%)',
-        backgroundImage: 'url(/src/assets/food-bg.jpg)',
+        backgroundImage: 'url(/src/assets/bg1.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

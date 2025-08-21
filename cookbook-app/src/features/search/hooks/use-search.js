@@ -27,23 +27,30 @@ export function useSearch() {
   // Load categories and areas on mount
   const loadInitialData = useCallback(async () => {
     try {
-      const [categoriesResult, areasResult, ingredientResult] = await Promise.all([
+      //promise.all to fetch categories, areas, and ingredients concurrently
+      const [categoriesResponse, areasResponse, ingredientsResponse] = await Promise.all([
         getMealCategories(),
         getMealList('a'),
         getMealList('i'),
       ]);
 
-      if (categoriesResult.success) {
-        setCategories([{ strCategory: 'None' }, ...(categoriesResult.data.categories || [])]);
+      if (categoriesResponse.success) {
+        setCategories([{ strCategory: 'None' }, ...(categoriesResponse.data.categories || [])]);
+      } else {
+        toast.error(categoriesResponse.message || 'Error loading categories');
       }
-      if (areasResult.success) {
-        setAreas([{ strArea: 'None' }, ...(areasResult.data.meals || [])]);
+      if (areasResponse.success) {
+        setAreas([{ strArea: 'None' }, ...(areasResponse.data.meals || [])]);
+      } else {
+        toast.error(areasResponse.message || 'Error loading areas');
       }
-      if (ingredientResult.success) {
-        setIngredients([{ strIngredient: 'None' }, ...(ingredientResult.data.meals || [])]);
+      if (ingredientsResponse.success) {
+        setIngredients([{ strIngredient: 'None' }, ...(ingredientsResponse.data.meals || [])]);
+      } else {
+        toast.error(ingredientsResponse.message || 'Error loading ingredients');
       }
     } catch (error) {
-      toast.error('Error loading initial data');
+      toast.error(error.message || 'Error loading initial data');
     }
   }, []);
 

@@ -8,7 +8,7 @@ import ProfilePage from '@/features/profile/pages/profile.jsx';
 import SearchPage from '@/features/search/pages/search-page.jsx';
 import RecipeDetailPage from '@/features/recipe/pages/recipe-detail-page.jsx';
 import CookbookPage from '@/features/cookbook/pages/cookbook-page.jsx';
-import Home from '@/features/dashboard/pages/home.jsx';
+import Dashboard from '@/features/dashboard/pages/dashboard.jsx';
 
 export default function AppRoutes() {
   return (
@@ -36,7 +36,7 @@ export default function AppRoutes() {
           path='/'
           element={
             <RequireAuth>
-              <Home />
+              <Dashboard />
             </RequireAuth>
           }
         />

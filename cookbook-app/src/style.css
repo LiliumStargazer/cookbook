@@ -91,4 +91,10 @@
     color: var(--destructive);
   }
 
+  .text-shadow-white {
+    text-shadow: 0 0 8px #fff, 0 0 16px #fff;
+  }
+    .text-shadow-black {
+        text-shadow: 0 0 8px #000, 0 0 16px #000;
+    }
 }

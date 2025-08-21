@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input.jsx';
 import { Label } from '@/components/ui/label.jsx';
 import { Button } from '@/components/ui/button.jsx';
+import { Textarea } from '@/components/ui/textarea.jsx';
 
 export default function AuthForm({
   fields = [],
@@ -29,14 +30,14 @@ export default function AuthForm({
             {field.label}
           </Label>
           {field.id === 'favoriteDishes' ? (
-            <textarea
+            <Textarea
               id={field.id}
               name={field.name}
               placeholder={field.placeholder}
               value={field.value}
               onChange={field.onChange}
               required={field.required}
-              className='w-full rounded-lg border border-gray-300 p-4 text-lg min-h-[80px] resize-none focus:ring-2 focus:ring-red-500 focus:border-transparent'
+              className='w-full max-h-10 rounded-lg border border-gray-300 p-2 text-lg resize-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-left align-top'
               style={{ resize: 'none' }}
               rows={4}
             />

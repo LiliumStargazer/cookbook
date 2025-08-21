@@ -36,6 +36,10 @@ export function useCookbook() {
     });
   }, [fetchUserRecipes]);
 
+  //Filter recipes based on search term, category, and area
+  // Use useMemo to optimize performance by memoizing the filtered recipes
+  // This will only recompute when userRecipes, searchTerm, selectedCategory, or selected
+  // return only the recipes that match the search term, category, and area
   const filteredRecipes = useMemo(() => {
     return userRecipes.filter(recipe => {
       const matchesSearch = recipe.strMeal.toLowerCase().includes(searchTerm.toLowerCase());
